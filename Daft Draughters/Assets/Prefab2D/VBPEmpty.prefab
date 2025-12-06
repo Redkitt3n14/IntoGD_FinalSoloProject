@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1230800837255625527, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
       propertyPath: m_Name
-      value: BlueprintBase Variant
+      value: VBPEmpty
+      objectReference: {fileID: 0}
+    - target: {fileID: 1230800837255625527, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
+      propertyPath: m_TagString
+      value: undrafted
       objectReference: {fileID: 0}
     - target: {fileID: 8034619673037108006, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
       propertyPath: m_LocalScale.x
