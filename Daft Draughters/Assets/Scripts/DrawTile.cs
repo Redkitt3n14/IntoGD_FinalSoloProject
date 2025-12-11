@@ -25,19 +25,20 @@ public class DrawTile : MonoBehaviour
             // sorts it into the position of the tiles current X and Y pos, then moved to 6x6 array
             int X = Mathf.RoundToInt(current.transform.localPosition.x);
             int Y = Mathf.RoundToInt(current.transform.localPosition.y);
-
+            //Debug.Log($"Tile {current} at pos {X},{Y}");
+            //Destroy(current);
             tilesSorted[X,Y] = current;
         }
 
         // any additional initial handling for the tiles can be done here
         for (int x = 0; x < 6; x++)
         {
-            for (int y = 0; y < 6; y++)
+            for (int y = 4; y < 6; y++)
             {
                 Debug.Log($"Tile {tilesSorted[x,y]} at pos {x},{y}");
                 // moves all tiles by 2 on x as a test
-                //Destroy(tilesSorted[x,y]);
-                tilesSorted[x,y].transform.Translate(0.1f, 0, 0);
+                Destroy(tilesSorted[x,y]);
+                //tilesSorted[x,y].transform.Translate(1f, 0, 0);
                 
             }
         }
@@ -53,7 +54,7 @@ public class DrawTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*
         // any additional initial handling for the tiles can be done here
         for (int x = 0; x < 6; x++)
         {
@@ -65,7 +66,7 @@ public class DrawTile : MonoBehaviour
                 tilesSorted[x, y].transform.Translate(0.01f, 0, 0);
 
             }
-        }
+        }*/
 
     }
 }
