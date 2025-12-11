@@ -18,6 +18,7 @@ TagManager:
   - freeRoute
   - insideLink
   - outsideLink
+  - borderDeco
   layers:
   - Default
   - TransparentFX

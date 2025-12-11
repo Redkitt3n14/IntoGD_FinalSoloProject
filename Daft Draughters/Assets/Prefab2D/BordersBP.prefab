@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueprintEdgesN
       objectReference: {fileID: 0}
+    - target: {fileID: 3715657793250207627, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
+      propertyPath: m_TagString
+      value: borderDeco
+      objectReference: {fileID: 0}
     - target: {fileID: 5549756084403908506, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25
@@ -116,6 +120,10 @@ PrefabInstance:
     - target: {fileID: 3715657793250207627, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
       propertyPath: m_Name
       value: BlueprintEdgesE
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715657793250207627, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
+      propertyPath: m_TagString
+      value: borderDeco
       objectReference: {fileID: 0}
     - target: {fileID: 5549756084403908506, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
       propertyPath: m_LocalScale.x
@@ -187,6 +195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueprintEdgesW
       objectReference: {fileID: 0}
+    - target: {fileID: 3715657793250207627, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
+      propertyPath: m_TagString
+      value: borderDeco
+      objectReference: {fileID: 0}
     - target: {fileID: 5549756084403908506, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25
@@ -256,6 +268,10 @@ PrefabInstance:
     - target: {fileID: 3715657793250207627, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
       propertyPath: m_Name
       value: BlueprintEdgesS
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715657793250207627, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
+      propertyPath: m_TagString
+      value: borderDeco
       objectReference: {fileID: 0}
     - target: {fileID: 5549756084403908506, guid: 884d938d03807d041978bc22a077b7c0, type: 3}
       propertyPath: m_LocalScale.x
