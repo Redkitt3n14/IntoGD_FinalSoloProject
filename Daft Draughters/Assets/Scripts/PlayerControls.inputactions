@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Drafting",
+            "name": "Walking",
             "id": "9bc0b872-4870-47d4-a564-79e0be8e30fb",
             "actions": [
                 {
@@ -165,7 +165,7 @@
                 {
                     "name": "",
                     "id": "616f8dfc-4bf3-4211-b279-458be27e744e",
-                    "path": "<Keyboard>/space",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Desktop",
@@ -225,6 +225,62 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Drafting",
+            "id": "348fa18f-c356-4090-80ee-bb9b943f0eee",
+            "actions": [
+                {
+                    "name": "Confirmation",
+                    "type": "Button",
+                    "id": "978446bd-610f-4fb2-9ca2-bff0f4ae8fe2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "125cb848-1a2c-4837-b0db-fcae312ff12a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirmation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Reading",
+            "id": "5dc5a891-ff8e-4aeb-88ce-e284dee1e6f3",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "916306c8-07ca-450e-b7ff-5f52502038cb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4ab45e41-b0a9-4bd7-95ec-ab1dddf74c24",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

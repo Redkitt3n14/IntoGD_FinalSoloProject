@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: undrafted
       objectReference: {fileID: 0}
+    - target: {fileID: 5218432202504131593, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3867227902784834599, guid: 4dfffab7404c9b9408b986471d67a82b, type: 3}
+    - target: {fileID: 5218432202504131593, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218432202504131593, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218432202504131593, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8034619673037108006, guid: 390b3b97a5cc8574f91da32dbdeb4744, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
