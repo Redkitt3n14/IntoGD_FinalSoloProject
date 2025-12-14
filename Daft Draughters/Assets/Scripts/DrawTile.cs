@@ -74,12 +74,25 @@ public class DrawTile : MonoBehaviour
 
     }
 
-    public void Draw(int X, int Y)
+    public void Draw(int x, int y)
     {
         // can select sprite from sprites[]
         Sprite newSprite = sprites[0];
-        tilesSorted[X, Y].GetComponent<SpriteRenderer>().sprite = newSprite;
+        tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
+
         Debug.Log($"Tile Swapped");
+        // TEMP debug output
+    }
+
+    // draws the very first tile - always a 4 path route
+    public void DrawStart(int x, int y)
+    {
+        // can select sprite from sprites[]
+        Sprite newSprite = sprites[0];
+        tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
+
+        Debug.Log($"Tile Swapped");
+        // TEMP debugs
     }
 
 }

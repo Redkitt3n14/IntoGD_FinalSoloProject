@@ -16,6 +16,7 @@ public class PositionMovement : MonoBehaviour
     public float speed;
 
     public DrawTile drawTile;
+    private GameObject playerPin;
     private GameObject playerCamera;
 
     // walk testing variables
@@ -56,13 +57,15 @@ public class PositionMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // gets the camera and the drawtile script
+        // gets the camera, the script of drawtile, and the player position pin
         playerCamera = transform.GetChild(0).gameObject;
         drawTile = transform.GetChild(1).gameObject.GetComponent<DrawTile>();
+        playerPin = transform.GetChild(2).gameObject;
 
         // TEMP start position - do random side, random 0-5 for end implement 
         playerX = 2;
         playerY = 0;
+        
     }
 
 
@@ -112,7 +115,7 @@ public class PositionMovement : MonoBehaviour
 
             if (move.x > 0) // right
             {
-                if (playerX < 6)
+                if (playerX < 5)
                 {
 
                     playerX++;
@@ -120,7 +123,7 @@ public class PositionMovement : MonoBehaviour
                 }
                 else // backup stops the player escaping
                 {
-                    playerX = 6;
+                    playerX = 5;
                 }
             }
             else if (move.x < 0) // left
@@ -137,14 +140,14 @@ public class PositionMovement : MonoBehaviour
             }
             else if (move.y > 0) // up
             {
-                if (playerY < 6)
+                if (playerY < 5)
                 {
                     playerY++;
                     drawTile.Draw(playerX, playerY);
                 }
                 else // backup stops the player escaping
                 {
-                    playerY = 6;
+                    playerY = 5;
                 }
             }
             else if (move.y < 0) // down
@@ -160,8 +163,10 @@ public class PositionMovement : MonoBehaviour
                 }
             }
 
+            playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
+
             // calls drawtile to do a new tile pick at the position
-            
+
             //Debug.Log($"at X {playerX} Y {playerY}");
 
         }
