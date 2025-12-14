@@ -65,7 +65,7 @@ public class PositionMovement : MonoBehaviour
         // TEMP start position - do random side, random 0-5 for end implement 
         playerX = 2;
         playerY = 0;
-        
+        drawTile.Draw(playerX, playerY); // does draw of first tile
     }
 
 
