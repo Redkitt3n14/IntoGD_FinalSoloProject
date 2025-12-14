@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.U2D;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class DrawTile : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class DrawTile : MonoBehaviour
     private GameObject[] tilesIn;
     public GameObject[,] tilesSorted;
     GameObject current;
+
+    public Sprite[] sprites;
     
     
     
@@ -33,11 +37,11 @@ public class DrawTile : MonoBehaviour
         // any additional initial handling for the tiles can be done here
         for (int x = 0; x < 6; x++)
         {
-            for (int y = 4; y < 6; y++)
+            for (int y = 0; y < 6; y++)
             {
                 Debug.Log($"Tile {tilesSorted[x,y]} at pos {x},{y}");
                 // moves all tiles by 2 on x as a test
-                Destroy(tilesSorted[x,y]);
+                //Destroy(tilesSorted[x,y]);
                 //tilesSorted[x,y].transform.Translate(1f, 0, 0);
                 
             }
@@ -69,4 +73,13 @@ public class DrawTile : MonoBehaviour
         }*/
 
     }
+
+    public void Draw(int X, int Y)
+    {
+        // can select sprite from sprites[]
+        Sprite newSprite = sprites[0];
+        tilesSorted[X, Y].GetComponent<SpriteRenderer>().sprite = newSprite;
+        Debug.Log($"Tile Swapped");
+    }
+
 }

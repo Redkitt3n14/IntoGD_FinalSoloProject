@@ -231,58 +231,183 @@
             ]
         },
         {
-            "name": "Drafting",
-            "id": "348fa18f-c356-4090-80ee-bb9b943f0eee",
+            "name": "UI",
+            "id": "f6ca5bfb-dda2-4f75-bfdf-134e3756cbbf",
             "actions": [
                 {
-                    "name": "Confirmation",
+                    "name": "Navigate",
                     "type": "Button",
-                    "id": "978446bd-610f-4fb2-9ca2-bff0f4ae8fe2",
+                    "id": "95cff787-fa2f-4e08-a599-dc70fefe0569",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "4c3f1ad4-cf0a-45eb-9586-24fdcb5b6bde",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "7f6a247b-ca78-4138-9863-0f263f624726",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "80cdaf9f-c0c2-451e-87c7-7ff0c20f2183",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MiddleClick",
+                    "type": "Button",
+                    "id": "2f565e46-1af5-4325-ac80-ee39aa4d6b2a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightClick",
+                    "type": "Button",
+                    "id": "5f43376d-b336-46a4-9f0e-3c431c539b01",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ScrollWheel",
+                    "type": "Value",
+                    "id": "dc914536-ca97-4ec6-96e2-d970d62b60e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "125cb848-1a2c-4837-b0db-fcae312ff12a",
+                    "id": "e379f0eb-3f50-4487-8e3e-ae0fe8d877b9",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Confirmation",
+                    "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Reading",
-            "id": "5dc5a891-ff8e-4aeb-88ce-e284dee1e6f3",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "916306c8-07ca-450e-b7ff-5f52502038cb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "4ab45e41-b0a9-4bd7-95ec-ab1dddf74c24",
+                    "id": "c13b5364-3582-45a0-ae94-b24785fb0a34",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19bf383f-d6fa-462a-acc5-c0030d84768e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d406a3e8-f81d-4263-a5f8-e98e2be8f735",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0eff57f-9fbe-46fe-8a70-bf6eef6478d8",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MiddleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce65a903-1904-4841-923b-291677ae695b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd408186-18bb-4fe0-a55f-2069d85b66b7",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "cb4ace16-b701-4e1c-9d81-eb7f91ae12fe",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollWheel",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "fc5d9199-54cc-4191-a1cf-bd781172fba1",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2f3b4b53-4ecb-4fe8-ab1d-278cdb0dcec9",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
