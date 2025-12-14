@@ -524,6 +524,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e212b1e3e115c4d9076803e8b3fcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 7057752148025388973, guid: 357c8ef4c88f6cc4188be6256d3d39c6, type: 3}
 --- !u!1001 &2176265891909826478
 PrefabInstance:
   m_ObjectHideFlags: 0
