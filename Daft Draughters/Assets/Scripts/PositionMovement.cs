@@ -164,8 +164,10 @@ public class PositionMovement : MonoBehaviour
             {
                 drawTile.Draw(playerX, playerY);
 
+
                 playerCamera.transform.position = new Vector3(playerX, playerY, -10);
                 playerCamera.fieldOfView = 12;
+                
 
                 moved = 0; // unsets for next use
             }
