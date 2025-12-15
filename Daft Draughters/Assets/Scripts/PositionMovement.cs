@@ -12,29 +12,13 @@ public class PositionMovement : MonoBehaviour
 
     private int playerX;
     private int playerY;
+    private int moved = 0;
 
     public float speed;
 
     public DrawTile drawTile;
     private GameObject playerPin;
-    private GameObject playerCamera;
-
-    // walk testing variables
-    Vector2[] walkTemp = {
-        new Vector2(0,0),
-        new Vector2(0,1),
-        new Vector2(1,0),
-        new Vector2(1,0),
-        new Vector2(0,-1),
-        new Vector2(1,0),
-        new Vector2(-1,0),
-        new Vector2(-1,0),
-        new Vector2(0,1),
-        new Vector2(-1,0),
-        new Vector2(0,1),
-        new Vector2(0,-1),
-        new Vector2(1,0),
-    };
+    private Camera playerCamera;
 
 
     private void Awake()
@@ -58,14 +42,14 @@ public class PositionMovement : MonoBehaviour
     void Start()
     {
         // gets the camera, the script of drawtile, and the player position pin
-        playerCamera = transform.GetChild(0).gameObject;
+        playerCamera = transform.GetChild(0).GetComponent<Camera>();
         drawTile = transform.GetChild(1).gameObject.GetComponent<DrawTile>();
         playerPin = transform.GetChild(2).gameObject;
 
         // TEMP start position - do random side, random 0-5 for end implement 
         playerX = 2;
         playerY = 0;
-        drawTile.Draw(playerX, playerY); // does draw of first tile
+        drawTile.DrawStart(playerX, playerY); // does draw of first tile
     }
 
 
@@ -97,12 +81,18 @@ public class PositionMovement : MonoBehaviour
             // zoom in / out function
             if ((playerControls.Walking.ZoomToggle.triggered && fullView) || playerControls.Walking.Zoom.ReadValue<float>() > 0)
             {
-                fullView = false; // sets to false toggle for movement enabling
+                fullView = false; // sets to false toggle for movement enabling - now in zoomed view
+
+                playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+                playerCamera.fieldOfView = 12;
 
             }
             else if ((playerControls.Walking.ZoomToggle.triggered && !fullView) || playerControls.Walking.Zoom.ReadValue<float>() < 0)
             {
-                fullView = true; // sets to true toggle for movement blocking
+                fullView = true; // sets to true toggle for movement blocking - now in full map view
+
+                playerCamera.transform.position = new Vector3(2.5f, 2.5f, -26);
+                playerCamera.fieldOfView = 16;
 
             }
 
@@ -113,61 +103,72 @@ public class PositionMovement : MonoBehaviour
 
             // moving function temp - only 1 of X or Y can move at a time
 
-            if (move.x > 0) // right
-            {
-                if (playerX < 5)
-                {
-
-                    playerX++;
-                    drawTile.Draw(playerX, playerY);
-                }
-                else // backup stops the player escaping
-                {
-                    playerX = 5;
-                }
-            }
-            else if (move.x < 0) // left
-            {
-                if (playerX > 0)
-                {
-                    playerX--;
-                    drawTile.Draw(playerX, playerY);
-                }
-                else // backup stops the player escaping
-                {
-                    playerX = 0;
-                }
-            }
-            else if (move.y > 0) // up
+            if (move.y > 0) // up / north
             {
                 if (playerY < 5)
                 {
                     playerY++;
-                    drawTile.Draw(playerX, playerY);
+                    moved = 1;
                 }
                 else // backup stops the player escaping
                 {
                     playerY = 5;
                 }
             }
-            else if (move.y < 0) // down
+            else if (move.y < 0) // down / south
             {
                 if (playerY > 0)
                 {
                     playerY--;
-                    drawTile.Draw(playerX, playerY);
+                    moved = 2;
                 }
                 else // backup stops the player escaping
                 {
                     playerY = 0;
                 }
             }
+            else if (move.x > 0) // right / east
+            {
+                if (playerX < 5)
+                {
+
+                    playerX++;
+                    moved = 3;
+                }
+                else // backup stops the player escaping
+                {
+                    playerX = 5;
+                }
+            }
+            else if (move.x < 0) // left / west
+            {
+                if (playerX > 0)
+                {
+                    playerX--;
+                    moved = 4;
+                }
+                else // backup stops the player escaping
+                {
+                    playerX = 0;
+                }
+            }
+            
 
             playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
 
             // calls drawtile to do a new tile pick at the position
 
             //Debug.Log($"at X {playerX} Y {playerY}");
+
+            if (moved > 0) // calls tile draw if move attempt (no = 0, up = 1, down = 2, left = 3, right = 4)
+            {
+                drawTile.Draw(playerX, playerY);
+
+                playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+                playerCamera.fieldOfView = 12;
+
+                moved = 0; // unsets for next use
+            }
 
         }
     }

@@ -74,6 +74,18 @@ public class DrawTile : MonoBehaviour
 
     }
 
+    // draws the very first tile - always a 4 path route
+    public void DrawStart(int x, int y)
+    {
+        // can select sprite from sprites[]
+        Sprite newSprite = sprites[0];
+        tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
+
+        Debug.Log($"Tile Swapped");
+        // TEMP debugs
+    }
+
+    // draws any further tiles
     public void Draw(int x, int y)
     {
         // can select sprite from sprites[]
@@ -84,15 +96,18 @@ public class DrawTile : MonoBehaviour
         // TEMP debug output
     }
 
-    // draws the very first tile - always a 4 path route
-    public void DrawStart(int x, int y)
-    {
-        // can select sprite from sprites[]
-        Sprite newSprite = sprites[0];
-        tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
 
-        Debug.Log($"Tile Swapped");
-        // TEMP debugs
+    // gets the exits of a specific tile
+    public int GetExits(int x, int y, int direction, out bool[] exits, out Sprite newSprite)
+    {
+        exits = new bool[] { true, true, true, true }; // TEMP all set to true
+        newSprite = null;
+        return 0;
+    }
+
+    public int RoomSelector(int x, int y)
+    {
+        return 0;
     }
 
 }
