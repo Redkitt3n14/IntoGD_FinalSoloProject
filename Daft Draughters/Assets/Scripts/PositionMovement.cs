@@ -50,6 +50,9 @@ public class PositionMovement : MonoBehaviour
         playerX = 2;
         playerY = 0;
         drawTile.DrawStart(playerX, playerY); // does draw of first tile
+        // zooms camera on initial tile
+        playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+        playerCamera.fieldOfView = 12;
     }
 
 
