@@ -6,19 +6,8 @@ TagManager:
   tags:
   - undrafted
   - drafted
-  - 4route
-  - 3route
-  - Lroute
-  - Iroute
-  - 1route
-  - circlePool
-  - straightPool
-  - freePool
-  - strictRoute
-  - freeRoute
-  - insideLink
-  - outsideLink
   - borderDeco
+  - animation
   layers:
   - Default
   - TransparentFX
