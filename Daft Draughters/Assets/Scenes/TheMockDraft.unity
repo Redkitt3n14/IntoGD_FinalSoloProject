@@ -168,15 +168,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c9f4243cc1222ab419d595bf37710164, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.195019
+      value: -0.188
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9f4243cc1222ab419d595bf37710164, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.17600012
+      value: -0.171
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9f4243cc1222ab419d595bf37710164, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.21501403
+      value: -0.191
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c9f4243cc1222ab419d595bf37710164, type: 3}
       propertyPath: m_LocalRotation.w
@@ -306,9 +306,10 @@ MonoBehaviour:
   fullView: 0
   userControl: 1
   speed: 1
-  drawTile: {fileID: 1499932218}
+  tileControl: {fileID: 0}
   nailsAnim: {fileID: 1147059285}
-  gameGrid: {fileID: 0}
+  gameGrid: {fileID: 734998938}
+  pseudoGrid: {fileID: 1003850215}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044a77aba9c476542a70638e6f405389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedDiv: 2
+  startY: 12.5
+  endY: 2.5
 --- !u!1 &1094318506
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,28 +79,16 @@ public class PlayerActionHandler : MonoBehaviour
             }
 
 
-            if (playerControls.Walking.Interact.triggered || playerControls.Walking.Zoom.ReadValue<float>() > 0)
-            {
-                Debug.Log("Successful Interact Trigger"); // sets to false toggle for movement enabling
-                Debug.Log($"at X {playerX} Y {playerY}");
-            }
-
 
             // zoom in / out function
             if ((playerControls.Walking.ZoomToggle.triggered && fullView) || playerControls.Walking.Zoom.ReadValue<float>() > 0)
             {
-                fullView = false; // sets to false toggle for movement enabling - now in zoomed view
-
-                playerCamera.transform.position = new Vector3(playerX, playerY, -10);
-                playerCamera.fieldOfView = 12;
+                ZoomIn();
 
             }
             else if ((playerControls.Walking.ZoomToggle.triggered && !fullView) || playerControls.Walking.Zoom.ReadValue<float>() < 0)
             {
-                fullView = true; // sets to true toggle for movement blocking - now in full map view
-
-                playerCamera.transform.position = new Vector3(2.5f, 2.5f, -26);
-                playerCamera.fieldOfView = 16;
+                ZoomOut();
 
             }
 
@@ -196,16 +184,16 @@ public class PlayerActionHandler : MonoBehaviour
     void ResetLevel()
     {
         userControl = false;
+        ZoomOut();
 
+        RemoveNail();
 
-        nailsAnim.SetBool("RemoveNail", true);
-
-        Invoke(nameof(DropPage), 2.2f);
+        Invoke(nameof(DropPage), 2.25f);
         
         Invoke(nameof(RecoverPage), 4.5f);
 
-        Invoke(nameof(SetNail), 4.5f);
-        Invoke(nameof(ResetPlayer), 4.5f);
+        Invoke(nameof(SetNail), 3.25f); // not sure why but the nail anims take ages to trigger
+        Invoke(nameof(ResetPlayer), 6.5f);
 
         // set nail also sets userControl back to true
 
@@ -233,6 +221,13 @@ public class PlayerActionHandler : MonoBehaviour
         pseudoGrid.GetComponent<PseudoDescentControl>().ResetPseudo();
     }
 
+    void RemoveNail()
+    {
+        nailsAnim.SetBool("RemoveNail", true);
+
+
+    }
+
     void SetNail() // starts the nail reapplication animation
     {
         nailsAnim.SetBool("RemoveNail", false);
@@ -242,11 +237,33 @@ public class PlayerActionHandler : MonoBehaviour
 
     void ResetPlayer()
     {
-        userControl = true; // give user control now page has returned
         tileControl.DrawStart(playerX, playerY);
+        userControl = true; // give user control now page has returned
     }
 
     // end of grid resetting functions --------------------------------------------------------
 
-    // functions to do with movement
+    // functions to do with camera control ----------------------------------------------------
+
+    void ZoomIn()
+    {
+        fullView = false; // sets to false toggle for movement enabling - now in zoomed view
+
+        playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+        playerCamera.fieldOfView = 12;
+    }
+    void ZoomOut()
+    {
+        fullView = true; // sets to true toggle for movement blocking - now in full map view
+
+        playerCamera.transform.position = new Vector3(2.5f, 2.5f, -26);
+        playerCamera.fieldOfView = 16;
+    }
+
+    void CameraMove()
+    {
+
+    }
+
+    // end of camera move functions ---------------------------------------------------------
 }
