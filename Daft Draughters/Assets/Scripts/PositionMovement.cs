@@ -205,6 +205,7 @@ public class PositionMovement : MonoBehaviour
         Invoke(nameof(RecoverPage), 4.5f);
 
         Invoke(nameof(SetNail), 4.5f);
+        Invoke(nameof(ResetPlayer), 4.5f);
 
         // set nail also sets userControl back to true
 
@@ -225,6 +226,8 @@ public class PositionMovement : MonoBehaviour
 
     void RecoverPage() // pulls the real page back out of the void - turns off gravity
     {
+        tileControl.ClearAll(); // resets original board
+
         gameGrid.GetComponent<Rigidbody>().useGravity = false;
         gameGrid.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         gameGrid.transform.position = new Vector3(0, 0, 0);
@@ -237,7 +240,13 @@ public class PositionMovement : MonoBehaviour
     {
         nailsAnim.SetBool("RemoveNail", false);
 
+        
+    }
+
+    void ResetPlayer()
+    {
         userControl = true; // give user control now page has returned
+        tileControl.DrawStart(playerX, playerY);
     }
 
 }
