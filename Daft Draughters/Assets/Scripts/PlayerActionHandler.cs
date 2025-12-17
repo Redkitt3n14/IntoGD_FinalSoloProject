@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class PositionMovement : MonoBehaviour
+public class PlayerActionHandler : MonoBehaviour
 {
 
     private PlayerControls playerControls;
@@ -211,17 +211,14 @@ public class PositionMovement : MonoBehaviour
 
     }
 
+
+    // these functions are all to do with resetting the grid --------------------------------
     void DropPage() // drops the game screen by activating it's rigidbody, and tells fake page to descend
     {
         gameGrid.GetComponent<Rigidbody>().useGravity = true;
 
         // makes the pseudo grid begin its controlled descent
         pseudoGrid.GetComponent<PseudoDescentControl>().BeginDescent();
-    }
-
-    void PseudoPage() // calls a fake page to descend from above
-    {
-
     }
 
     void RecoverPage() // pulls the real page back out of the void - turns off gravity
@@ -249,4 +246,7 @@ public class PositionMovement : MonoBehaviour
         tileControl.DrawStart(playerX, playerY);
     }
 
+    // end of grid resetting functions --------------------------------------------------------
+
+    // functions to do with movement
 }
