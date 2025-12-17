@@ -1,10 +1,11 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PseudoBPDescentControl : MonoBehaviour
+public class PseudoDescentControl : MonoBehaviour
 {
 
-    public float speed = 1.0f;
+    public float speedDiv = 2.0f;
 
     // the Y positions it aims for
     public float startY = 12.5f;
@@ -15,12 +16,13 @@ public class PseudoBPDescentControl : MonoBehaviour
     // tracks the time of descent
     private float timePass;
     private float drag;
+    private float partMove;
     // is it descending or disabled (for avoiding unnecesary updating)
     private bool descending;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void BeginDescent()
+    public void BeginDescent()
     {
         GetComponent<Renderer>().enabled = true; // makes visible
         descending = true;
@@ -38,11 +40,15 @@ public class PseudoBPDescentControl : MonoBehaviour
         if (descending)
         {
 
-            timePass += Time.deltaTime / speed;
+            timePass += Time.deltaTime / speedDiv;
 
-            drag = (transform.position.y - endPos.y) + 1;
+            drag = Mathf.SmoothStep(0f, 1f, timePass);
+
+            //partMove = (transform.position.y - endPos.y) + 0.1f; 
 
             transform.position = Vector3.Lerp(startPos, endPos, drag);
+
+            //transform.position = Vector3.MoveTowards(transform.position, endPos, 0.001f); 
 
             if (timePass >= 1) // overshoot protection
             {
@@ -52,10 +58,11 @@ public class PseudoBPDescentControl : MonoBehaviour
         }
     }
 
-    void ResetPseudo() // set the Y value back to starting height
+    public void ResetPseudo() // set the Y value back to starting height
     {
         GetComponent<Renderer>().enabled = false; // makes hidden
         descending = false;
+        //gameGrid.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         transform.position = startPos; // resets to start
     }
 }

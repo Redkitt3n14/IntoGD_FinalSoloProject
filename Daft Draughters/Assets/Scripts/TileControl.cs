@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.U2D;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class DrawTile : MonoBehaviour
+public class TileControl : MonoBehaviour
 {
 
     // tile array declare

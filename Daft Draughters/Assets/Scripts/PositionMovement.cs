@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class PositionMovement : MonoBehaviour
 {
 
     private PlayerControls playerControls;
 
-    public bool fullView = false; // bool for if zoomed in or out - public so 
-    public bool userControl = true; // can be turned to false when animation is played
+    [SerializeField] private bool fullView = false; // bool for if zoomed in or out - public so 
+    [SerializeField] private bool userControl = true; // can be turned to false when animation is played
 
 
 
@@ -14,15 +15,15 @@ public class PositionMovement : MonoBehaviour
     private int playerY;
     private int moved = 0;
 
-    public float speed;
+    [SerializeField] private float speed;
 
-    public DrawTile drawTile;
+    [SerializeField] private TileControl tileControl;
     private GameObject playerPin;
     private Camera playerCamera;
 
-    public Animator nailsAnim;
-    public GameObject gameGrid;
-    public GameObject pseudoGrid;
+    [SerializeField] private Animator nailsAnim;
+    [SerializeField] private GameObject gameGrid;
+    [SerializeField] private GameObject pseudoGrid;
 
 
     private void Awake()
@@ -45,15 +46,15 @@ public class PositionMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // gets the camera, the script of drawtile, and the player position pin
+        // gets the camera, the script of tileControl, and the player position pin
         playerCamera = transform.GetChild(0).GetComponent<Camera>();
-        drawTile = transform.GetChild(1).gameObject.GetComponent<DrawTile>();
+        tileControl = transform.GetChild(1).gameObject.GetComponent<TileControl>();
         playerPin = transform.GetChild(2).gameObject;
 
         // TEMP start position - do random side, random 0-5 for end implement 
         playerX = 2;
         playerY = 0;
-        drawTile.DrawStart(playerX, playerY); // does draw of first tile
+        tileControl.DrawStart(playerX, playerY); // does draw of first tile
         // zooms camera on initial tile
         playerCamera.transform.position = new Vector3(playerX, playerY, -10);
         playerCamera.fieldOfView = 12;
@@ -66,7 +67,7 @@ public class PositionMovement : MonoBehaviour
     void Update()
     {
 
-        if (userControl) // ignores movement if locked (ie before a previous move finishes)
+        if (userControl == true) // ignores movement if locked (ie before a previous move finishes)
         {
 
             Vector2 move = new Vector2();
@@ -163,13 +164,13 @@ public class PositionMovement : MonoBehaviour
 
             playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
 
-            // calls drawtile to do a new tile pick at the position
+            // calls tileControl to do a new tile pick at the position
 
             //Debug.Log($"at X {playerX} Y {playerY}");
 
             if (moved > 0) // calls tile draw if move attempt (no = 0, up = 1, down = 2, left = 3, right = 4)
             {
-                drawTile.Draw(playerX, playerY);
+                tileControl.Draw(playerX, playerY);
 
 
                 if (!fullView) // adjusts camera to new room if player is in zoomed view
@@ -194,19 +195,25 @@ public class PositionMovement : MonoBehaviour
     // this function drops out the real map, drops in a fake new map, clears real map, then teleports real map back up and hides fake new map
     void ResetLevel()
     {
+        userControl = false;
+
+
         nailsAnim.SetBool("RemoveNail", true);
 
-        Invoke(nameof(DropPage), 2.0f);
+        Invoke(nameof(DropPage), 2.2f);
         
-        Invoke(nameof(RecoverPage), 3.5f);
+        Invoke(nameof(RecoverPage), 4.5f);
 
-        Invoke(nameof(SetNail), 5.0f);
+        Invoke(nameof(SetNail), 4.5f);
+
+        // set nail also sets userControl back to true
 
     }
 
     void DropPage() // drops the game screen by activating it's rigidbody, and tells fake page to descend
     {
         gameGrid.GetComponent<Rigidbody>().useGravity = true;
+
         // makes the pseudo grid begin its controlled descent
         pseudoGrid.GetComponent<PseudoDescentControl>().BeginDescent();
     }
@@ -216,15 +223,21 @@ public class PositionMovement : MonoBehaviour
 
     }
 
-    void RecoverPage() // pulls the real page back out of the void
+    void RecoverPage() // pulls the real page back out of the void - turns off gravity
     {
         gameGrid.GetComponent<Rigidbody>().useGravity = false;
-        gameGrid.
+        gameGrid.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        gameGrid.transform.position = new Vector3(0, 0, 0);
+
+        // makes the pseudo grid disappear now real is back
+        pseudoGrid.GetComponent<PseudoDescentControl>().ResetPseudo();
     }
 
     void SetNail() // starts the nail reapplication animation
     {
         nailsAnim.SetBool("RemoveNail", false);
+
+        userControl = true; // give user control now page has returned
     }
 
 }
