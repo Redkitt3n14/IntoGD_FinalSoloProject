@@ -12,9 +12,10 @@ public class DrawTile : MonoBehaviour
     GameObject current;
 
     public Sprite[] sprites;
-    
-    
-    
+    public Sprite defaultSprite;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -94,6 +95,26 @@ public class DrawTile : MonoBehaviour
 
         Debug.Log($"Tile Swapped");
         // TEMP debug output
+    }
+
+    public void ClearAll()
+    {
+        for (int x = 0; x < 6; x++)
+        {
+            for (int y = 0; y < 6; y++)
+            {
+                // can select sprite from sprites[]
+                Sprite newSprite = defaultSprite;
+                tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = defaultSprite;
+
+                Debug.Log($"Tile Swapped");
+                // TEMP debug output
+
+                // CHECK - remember to have this call all rooms reset functions too
+            }
+        }
+        
+
     }
 
 

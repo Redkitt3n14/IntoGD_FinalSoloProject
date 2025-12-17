@@ -8,7 +8,7 @@ public class PositionMovement : MonoBehaviour
     public bool fullView = false; // bool for if zoomed in or out - public so 
     public bool userControl = true; // can be turned to false when animation is played
 
-    
+
 
     private int playerX;
     private int playerY;
@@ -19,6 +19,10 @@ public class PositionMovement : MonoBehaviour
     public DrawTile drawTile;
     private GameObject playerPin;
     private Camera playerCamera;
+
+    public Animator nailsAnim;
+    public GameObject gameGrid;
+    public GameObject pseudoGrid;
 
 
     private void Awake()
@@ -155,7 +159,7 @@ public class PositionMovement : MonoBehaviour
                     playerX = 0;
                 }
             }
-            
+
 
             playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
 
@@ -177,7 +181,50 @@ public class PositionMovement : MonoBehaviour
                 moved = 0; // unsets for next use
             }
 
+            // this function will reset the level to empty
+            if (playerControls.Walking.Pause.triggered) //TEMP on ESC key for nail testing
+            {
+                ResetLevel();
+            }
+
         }
+    }
+
+    // drops the previous map and makes a new one
+    // this function drops out the real map, drops in a fake new map, clears real map, then teleports real map back up and hides fake new map
+    void ResetLevel()
+    {
+        nailsAnim.SetBool("RemoveNail", true);
+
+        Invoke(nameof(DropPage), 2.0f);
+        
+        Invoke(nameof(RecoverPage), 3.5f);
+
+        Invoke(nameof(SetNail), 5.0f);
+
+    }
+
+    void DropPage() // drops the game screen by activating it's rigidbody, and tells fake page to descend
+    {
+        gameGrid.GetComponent<Rigidbody>().useGravity = true;
+        // makes the pseudo grid begin its controlled descent
+        pseudoGrid.GetComponent<PseudoDescentControl>().BeginDescent();
+    }
+
+    void PseudoPage() // calls a fake page to descend from above
+    {
+
+    }
+
+    void RecoverPage() // pulls the real page back out of the void
+    {
+        gameGrid.GetComponent<Rigidbody>().useGravity = false;
+        gameGrid.
+    }
+
+    void SetNail() // starts the nail reapplication animation
+    {
+        nailsAnim.SetBool("RemoveNail", false);
     }
 
 }
