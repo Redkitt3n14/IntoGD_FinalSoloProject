@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.U2D;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using RoomStruct;
 
 public class TileControl : MonoBehaviour
 {

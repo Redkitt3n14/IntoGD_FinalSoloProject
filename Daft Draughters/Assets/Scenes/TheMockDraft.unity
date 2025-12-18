@@ -1118,7 +1118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 7057752148025388973, guid: 357c8ef4c88f6cc4188be6256d3d39c6, type: 3}
+  - {fileID: 1142666270159016277, guid: 357c8ef4c88f6cc4188be6256d3d39c6, type: 3}
+  - {fileID: -5764542677534706913, guid: c1a8fa45f2a5604439b513b9968ff588, type: 3}
+  - {fileID: 8212743100086546186, guid: 83bec05bb853ee94b88bca5452167dc2, type: 3}
+  - {fileID: -2141217855488417817, guid: 5f460c1a76721c84f86efa8b7a43f743, type: 3}
+  - {fileID: -2654282674496990681, guid: 24a2081a4ecd3ea4b951cf6008e2593e, type: 3}
   defaultSprite: {fileID: 3867227902784834599, guid: 4dfffab7404c9b9408b986471d67a82b, type: 3}
 --- !u!114 &1499932219
 MonoBehaviour:

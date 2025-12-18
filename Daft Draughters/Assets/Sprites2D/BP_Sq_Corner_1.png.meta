@@ -3,8 +3,8 @@ guid: 83bec05bb853ee94b88bca5452167dc2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4284479900899499543
-    second: BP_S_L_1_0
+      213: 8212743100086546186
+    second: BP_Sq_Corner_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BP_S_L_1_0
+      name: BP_Sq_Corner_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,15 +108,15 @@ TextureImporter:
         width: 2160
         height: 2160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9e1a593fa387a84c0800000000000000
-      internalID: -4284479900899499543
+      spriteID: a0fe238265689f170800000000000000
+      internalID: 8212743100086546186
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d5129d976b919cf44bd52eb4c7e500b7
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BP_S_L_1_0: -4284479900899499543
+      BP_Sq_Corner_1_0: 8212743100086546186
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
