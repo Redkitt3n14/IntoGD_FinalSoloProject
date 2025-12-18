@@ -3,42 +3,68 @@ using System.Collections.Generic; // for rooms list
 using RoomStruct;
 
 public class DeckHandler : MonoBehaviour
-{    
+{
+    // tracks number of rooms available
     private int roomTotal;
 
-    List<Room> rooms = new List<Room>();
+    // list of all rooms that can be drafted
+    private List<Room> rooms;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    Room PullRandom(bool isOutdoor)
+    // tracks which list items are currently out for selection
+    private int[] randTracker = { -1, -1, -1 };
+    private int randNum = -1;
+
+
+    // Functions ----------------------------------------------------------------
+
+    // PullRandom drafts you a room - which of the 3 rooms is currently beign drawn, and does it have to be an indoor / outdoor tile
+    Room PullRandom(bool outLock, bool inLock, int pullTracker)
     {
-        return rooms[0];
+        randNum = Random.Range(0, rooms.Count); // takes a random int from 0 to number of available rooms
+
+        randTracker[pullTracker] = randNum; // sets the tracker at the pull position to the list position - since 3 rooms are pulled
+        return rooms[randNum];
     }
 
-    void RemoveFromDeck(int removePos)
+    void RemoveFromDeck(int pullTracker) // removes the tile that the user selected from deck
     {
+        rooms.RemoveAt(pullTracker);
 
+        // resets 
+        randTracker[0] = -1;
+        randTracker[1] = -1;
+        randTracker[2] = -1;
     }
     
-    
-    void AddProtractor()
+    // functions to add more tiles to deck if player has the tools to draft them
+    void AddProtractor() // adds tiles that require protractor to deck
     {
 
     }
 
-    void AddStraightEdge()
+    void AddStraightEdge() // adds tiles that require protractor to deck
     {
 
     }
 
-    void ResetDeck()
+    void ResetDeck() // refills deck to basic version, removes items from player
     {
-
+        
+        CompileDeck();
     }
 
 
     // DECK LIST ----------------------------------------------------------------------
 
     void CompileDeck() {
+
+        // reset list and room counter, and random trackers
+        roomTotal = 0;
+        List<Room> rooms = new List<Room>();
+        randTracker[0] = -1;
+        randTracker[1] = -1;
+        randTracker[2] = -1;
+        randNum = -1;
 
         for (; roomTotal < roomTotal+6; roomTotal++)  // adds 5 blank quad rooms to room total
         {
