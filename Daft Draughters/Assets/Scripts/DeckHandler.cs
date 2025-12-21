@@ -79,10 +79,7 @@ public class DeckHandler : MonoBehaviour
         room = new Room() // standard quad room
         {
             inDeck = true,
-            doorA = true,
-            doorB = true,
-            doorC = true,
-            doorD = true,
+            doorways = new bool[4]{ true, true, true, true },
             spriteID = 0,
             interacts = new Interact[0],
         };
@@ -96,10 +93,7 @@ public class DeckHandler : MonoBehaviour
         room = new Room() // standard quad room
         {
             inDeck = true,
-            doorA = true,
-            doorB = true,
-            doorC = true,
-            doorD = false,
+            doorways = new bool[4] { true, true, true, false },
             spriteID = 1,
             interacts = new Interact[0],
         };
@@ -113,10 +107,7 @@ public class DeckHandler : MonoBehaviour
         room = new Room() // standard quad room
         {
             inDeck = true,
-            doorA = true,
-            doorB = true,
-            doorC = false,
-            doorD = false,
+            doorways = new bool[4] { true, true, false, false },
             spriteID = 2,
             interacts = new Interact[0],
         };
@@ -130,10 +121,7 @@ public class DeckHandler : MonoBehaviour
         room = new Room() // standard quad room
         {
             inDeck = true,
-            doorA = true,
-            doorB = false,
-            doorC = true,
-            doorD = false,
+            doorways = new bool[4] { true, false, true, false },
             spriteID = 3,
             interacts = new Interact[0],
         };
@@ -147,12 +135,9 @@ public class DeckHandler : MonoBehaviour
         room = new Room() // standard quad room
         {
             inDeck = true,
-            doorA = true,
-            doorB = false,
-            doorC = false,
-            doorD = false,
+            doorways = new bool[4] { true, false, false, false },
             spriteID = 4,
-            interacts = { },
+            interacts = new Interact[0],
         };
         roomLock = roomTotal + 10;
         for (; roomTotal < roomLock; roomTotal++) // adds 8 blank end rooms to room total

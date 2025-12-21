@@ -13,10 +13,7 @@ namespace RoomStruct
     {
         // variable declaration
         public bool inDeck;
-        public bool doorA;
-        public bool doorB;
-        public bool doorC;
-        public bool doorD;
+        public bool[] doorways;
         public int spriteID;
         public Interact[] interacts;
 
