@@ -4,33 +4,43 @@ using RoomStruct;
 public class RoomInfo : MonoBehaviour
 {
     // sets the true angle, the 90 rot count, and itself room details
-    private float angle;
-    private int rotation;
     private Room self;
 
 
     // room setter uppers
-    public void SetRoom(Room roomIn, float angleIn)
+    public void SetRoom(Room roomIn, float angleIn, bool doOffset)
     {
         // basic setup
         self = roomIn;
-        angle = angleIn;
+        self.angle = angleIn;
 
-        rotation = Mathf.FloorToInt(angleIn / 90);
+        self.rotation = Mathf.FloorToInt(angleIn / 90);
 
-        // this offsets the self room's saved doors by rotation from original
-        for (int r = 0; r < 4; r++) 
+        if (doOffset)
         {
-            if (r + rotation < 4) // only if not out range
+            // this offsets the self room's saved doors by the rotation from original
+            for (int r = 0; r < 4; r++)
             {
-                self.doorways[r + rotation] = roomIn.doorways[r];
-            }
-            else // stops it going out of range
-            {
-                self.doorways[r + rotation - 4] = roomIn.doorways[r];
+                if (r + self.rotation < 4) // only if not out range
+                {
+                    self.doorways[r + self.rotation] = roomIn.doorways[r];
+                }
+                else // stops it going out of range
+                {
+                    self.doorways[r + self.rotation - 4] = roomIn.doorways[r];
+                }
             }
         }
+        else // version with no rotating for if taken from a prerotated room object
+        {
+            self.doorways = roomIn.doorways;
+        }
 
+    }
+    public void SetAngle(int angleIn)
+    {
+        self.angle = angleIn;
+        self.rotation = angleIn / 90;
     }
 
     // the 4 doorway getters
@@ -49,6 +59,15 @@ public class RoomInfo : MonoBehaviour
     public bool GetWest()
     {
         return self.doorways[3];
+    }
+ 
+    public float GetRotation()
+    {
+        return self.rotation;
+    }
+    public float GetAngle()
+    {
+        return self.angle;
     }
     public int GetSpriteID()
     {

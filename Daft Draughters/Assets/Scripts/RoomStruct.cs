@@ -15,6 +15,10 @@ namespace RoomStruct
         public bool inDeck;
         public bool[] doorways;
         public int spriteID;
+
+        public float angle;
+        public int rotation;
+
         public Interact[] interacts;
 
     }

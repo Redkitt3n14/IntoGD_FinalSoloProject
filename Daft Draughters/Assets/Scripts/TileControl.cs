@@ -1,6 +1,6 @@
-using UnityEngine;
 using RoomStruct;
-using Unity.Mathematics;
+//using Unity.Mathematics; CHECK
+using UnityEngine;
 
 public class TileControl : MonoBehaviour
 {
@@ -18,6 +18,7 @@ public class TileControl : MonoBehaviour
 
     // sets up the holder for the 3 current random tiles
     private Room[] tilePulled = new Room[3];
+    private int[] tilePulledAngle = new int[3];
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -63,12 +64,25 @@ public class TileControl : MonoBehaviour
     // draws the very first tile - always a 4 path route
     public void DrawStart(int x, int y) // CHECK - needs to mimick Draw
     {
-        // can select sprite from sprites[]
-        Sprite newSprite = sprites[0];
+        // sets tile to drafted
+        tilesSorted[x, y].tag = "drafted";
+
+        // pulls the first tile in the deck (always a quad door room)
+        tilePulled[0] = deckHandler.PullSelect(0);
+
+        float tileAngle = 0; // always quad so no need to rotate
+
+        // TEMP - set up the ahead tile to take data from the Room obj
+        Room tileSelected = tilePulled[0];
+
+        tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tileAngle, false);
+
+        // sets the tileSelected's sprite, sets and rotates it
+        Sprite newSprite = sprites[tileSelected.spriteID];
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
 
-        Debug.Log($"Tile Swapped");
-        // TEMP debugs
+        Debug.Log($"First Tile Drawn");
+        // TEMP debug output
     }
 
     // checks if tile is drawn
@@ -85,27 +99,54 @@ public class TileControl : MonoBehaviour
     }
 
     // draws any further tiles
-    public void Draw(int x, int y)
+    public void Draw(int x, int y, int approach) // approach is for side the player enters from: 1 from north, 2 from east, 
     {
         // sets tile to drafted
         tilesSorted[x, y].tag = "drafted";
-        // can select sprite from sprites[]
+
+
+        // ROOM SELECTOR
         for (int tile = 0; tile < 1; tile++)
         {
             tilePulled[tile] = deckHandler.PullRandom(false, false, 0);
             Debug.Log($"Pulled Tile with spriteID { tilePulled[tile].spriteID}");
 
+
+            // ROTATION RANDOMISER
+            approach--; // reduces by 1 as the passed in had 0 as no movement (which would never be passed)
+            int doorCount = 0;
+            for (int a = 0; a < 3; a++)
+            {
+                if (tilePulled[tile].doorways[a])
+                {
+                    doorCount++;
+                }
+            }
+            int randResult = Random.Range(0, doorCount);
+
+            tilePulledAngle[tile] = (approach * 90) + (randResult * 90); // sets angle to the approach * 90
+
+            if (tilePulled[tile].doorways[2] && doorCount == 2) // for the straight room, as doors not adjacent
+            {
+                tilePulledAngle[tile] = (approach * 90) + (randResult * 180);
+            }
+            
+        
+
         }
-        float tileAngle = 0;
+
+
+
         // TEMP - set up the ahead tile to take data from the Room obj
         Room tileSelected = tilePulled[0];
+        tileSelected.angle = tilePulledAngle[0];
 
-        tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tileAngle); 
+        tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tilePulledAngle[0], true); 
 
-        // sets the tileSelected's sprite, sets and rotates it
+        // sets the tileSelected's sprite, sets and rotates it - TEMP SET TO [0] - use selector
         Sprite newSprite = sprites[tileSelected.spriteID];
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
-        tilesSorted[x, y].transform.Rotate(0f, 0f, tileAngle, Space.Self);
+        tilesSorted[x, y].transform.Rotate(0f, 0f, tilePulledAngle[0], Space.Self);
 
         Debug.Log($"Tile Swapped");
         // TEMP debug output
