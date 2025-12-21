@@ -158,7 +158,11 @@ public class PlayerActionHandler : MonoBehaviour
 
             if (moved > 0) // calls tile draw if move attempt (no = 0, up = 1, down = 2, left = 3, right = 4)
             {
-                tileControl.Draw(playerX, playerY);
+                if (!tileControl.CheckDrafted(playerX, playerY)) // if not, the tile is undrafted
+                {
+                    tileControl.Draw(playerX, playerY);
+                }
+                
 
 
                 if (!fullView) // adjusts camera to new room if player is in zoomed view
@@ -170,6 +174,8 @@ public class PlayerActionHandler : MonoBehaviour
                 moved = 0; // unsets for next use
             }
 
+
+
             // this function will reset the level to empty
             if (playerControls.Walking.Pause.triggered) //TEMP on ESC key for nail testing
             {
@@ -178,6 +184,12 @@ public class PlayerActionHandler : MonoBehaviour
 
         }
     }
+
+
+
+
+
+
 
     // drops the previous map and makes a new one
     // this function drops out the real map, drops in a fake new map, clears real map, then teleports real map back up and hides fake new map
@@ -198,6 +210,8 @@ public class PlayerActionHandler : MonoBehaviour
         // set nail also sets userControl back to true
 
     }
+
+
 
 
     // these functions are all to do with resetting the grid --------------------------------

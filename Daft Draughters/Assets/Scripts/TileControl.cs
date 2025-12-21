@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.U2D;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using RoomStruct;
+using Unity.Mathematics;
 
 public class TileControl : MonoBehaviour
 {
@@ -58,23 +56,12 @@ public class TileControl : MonoBehaviour
                 
             }
         }
-
-
     }
 
-    private GameObject FindGameObjectsWithTag(string v)
-    {
-        throw new NotImplementedException();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     // draws the very first tile - always a 4 path route
-    public void DrawStart(int x, int y)
+    public void DrawStart(int x, int y) // CHECK - needs to mimick Draw
     {
         // can select sprite from sprites[]
         Sprite newSprite = sprites[0];
@@ -84,9 +71,24 @@ public class TileControl : MonoBehaviour
         // TEMP debugs
     }
 
+    // checks if tile is drawn
+    public bool CheckDrafted(int x, int y) // returns true if drafted, false if not
+    {
+        if (tilesSorted[x, y].tag == "drafted")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     // draws any further tiles
     public void Draw(int x, int y)
     {
+        // sets tile to drafted
+        tilesSorted[x, y].tag = "drafted";
         // can select sprite from sprites[]
         for (int tile = 0; tile < 1; tile++)
         {
@@ -94,10 +96,16 @@ public class TileControl : MonoBehaviour
             Debug.Log($"Pulled Tile with spriteID { tilePulled[tile].spriteID}");
 
         }
+        float tileAngle = 0;
         // TEMP - set up the ahead tile to take data from the Room obj
-        Sprite newSprite = sprites[tilePulled[0].spriteID];
+        Room tileSelected = tilePulled[0];
 
+        tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tileAngle); 
+
+        // sets the tileSelected's sprite, sets and rotates it
+        Sprite newSprite = sprites[tileSelected.spriteID];
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
+        tilesSorted[x, y].transform.Rotate(0f, 0f, tileAngle, Space.Self);
 
         Debug.Log($"Tile Swapped");
         // TEMP debug output
