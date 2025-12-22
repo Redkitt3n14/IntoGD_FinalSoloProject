@@ -22,14 +22,9 @@ public class RoomInfo : MonoBehaviour
             // this offsets the self room's saved doors by the rotation from original
             for (int r = 0; r < 4; r++)
             {
-                if (r + self.rotation < 4) // only if not out range
-                {
-                    self.doorways[r + self.rotation] = roomIn.doorways[r];
-                }
-                else // stops it going out of range
-                {
-                    self.doorways[r + self.rotation - 4] = roomIn.doorways[r];
-                }
+
+                self.doorways[(r + (4 - self.rotation)) % 4] = roomIn.doorways[r]; // the +4 is to stop it from becoming negatvie
+
             }
         }
         else // version with no rotating for if taken from a prerotated room object

@@ -99,51 +99,90 @@ public class PlayerActionHandler : MonoBehaviour
 
             // moving function temp - only 1 of X or Y can move at a time
 
-            if (move.y > 0) // up / north
+            if (move.y > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetNorth()) // up / north (only if there is a north door)
             {
                 if (playerY < 5)
                 {
-                    playerY++;
-                    moved = 3;
+                    if (!tileControl.CheckDrafted(playerX, playerY + 1)) // is the tile above not drafted?
+                    {
+                        playerY++;
+                        moved = 3;
+                        Debug.Log("North, undrafted");
+                    }
+                    else if (tileControl.tilesSorted[playerX, playerY + 1].GetComponent<RoomInfo>().GetSouth()) // if drafted, does it have south doora
+                    {
+                        playerY++;
+                        moved = 3;
+                        Debug.Log("North, drafted");
+                    }
                 }
-                else // backup stops the player escaping
+                else if (playerY > 5) // backup stops the player escaping
                 {
                     playerY = 5;
                 }
             }
-            else if (move.y < 0) // down / south
+            else if (move.y < 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetSouth()) // down / south (only if there is a south door)
             {
                 if (playerY > 0)
                 {
-                    playerY--;
-                    moved = 1;
+                    if (!tileControl.CheckDrafted(playerX, playerY - 1)) // is the tile below not drafted?
+                    {
+                        playerY--;
+                        moved = 1;
+                        Debug.Log("South, undrafted");
+                    }
+                    else if (tileControl.tilesSorted[playerX, playerY - 1].GetComponent<RoomInfo>().GetNorth()) // if drafted, does it have north door
+                    {
+                        playerY--;
+                        moved = 1;
+                        Debug.Log("South, drafted");
+                    }
                 }
-                else // backup stops the player escaping
+                else if (playerY < 0) // backup stops the player escaping
                 {
                     playerY = 0;
                 }
             }
-            else if (move.x > 0) // right / east
+            else if (move.x > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetEast()) // right / east (only if there is a east door)
             {
                 if (playerX < 5)
                 {
-
-                    playerX++;
-                    moved = 2;
+                    if (!tileControl.CheckDrafted(playerX + 1, playerY)) // is the tile to right not drafted?
+                    {
+                        playerX++;
+                        moved = 2;
+                        Debug.Log("East, undrafted");
+                    }
+                    else if (tileControl.tilesSorted[playerX + 1, playerY].GetComponent<RoomInfo>().GetWest()) // if drafted, does it have west door
+                    {
+                        playerX++;
+                        moved = 2;
+                        Debug.Log("East, drafted");
+                    }
                 }
-                else // backup stops the player escaping
+                else if (playerX > 5)// backup stops the player escaping
                 {
                     playerX = 5;
                 }
             }
-            else if (move.x < 0) // left / west
+            else if (move.x < 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetWest()) // left / west (only if there is a west door)
             {
                 if (playerX > 0)
                 {
-                    playerX--;
-                    moved = 4;
+                    if (!tileControl.CheckDrafted(playerX - 1, playerY)) // is the tile to west not drafted?
+                    {
+                        playerX--;
+                        moved = 4;
+                        Debug.Log("West, undrafted");
+                    }
+                    else if (tileControl.tilesSorted[playerX - 1, playerY].GetComponent<RoomInfo>().GetEast()) // if drafted, does it have east door
+                    {
+                        playerX--;
+                        moved = 4;
+                        Debug.Log("West, drafted");
+                    }
                 }
-                else // backup stops the player escaping
+                else if (playerX < 0) // backup stops the player escaping
                 {
                     playerX = 0;
                 }
@@ -156,7 +195,7 @@ public class PlayerActionHandler : MonoBehaviour
 
             //Debug.Log($"at X {playerX} Y {playerY}");
 
-            if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, right = 2, up = 3, left = 4)
+            if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, left = 2, up = 3, right = 4)
             {
                 if (!tileControl.CheckDrafted(playerX, playerY)) // if not, the tile is undrafted
                 {
