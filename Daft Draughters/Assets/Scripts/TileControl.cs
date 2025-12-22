@@ -20,6 +20,8 @@ public class TileControl : MonoBehaviour
     private Room[] tilePulled = new Room[3];
     private int[] tilePulledAngle = new int[3];
 
+    public Room[] tileGUIs;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -99,7 +101,7 @@ public class TileControl : MonoBehaviour
     }
 
     // draws any further tiles
-    public void Draw(int x, int y, int approach) // approach is for side the player enters from: 1 from north, 2 from east, 
+    public void Pull3Random(int x, int y, int approach) // approach is for side the player enters from: 1 from north, 2 from east, 
     {
         // sets tile to drafted
         tilesSorted[x, y].tag = "drafted";
@@ -109,7 +111,7 @@ public class TileControl : MonoBehaviour
         for (int tile = 0; tile < 1; tile++)
         {
             tilePulled[tile] = deckHandler.PullRandom(false, false, 0);
-            Debug.Log($"Pulled Tile with spriteID { tilePulled[tile].spriteID}");
+            Debug.Log($"Pulled Tile with spriteID {tilePulled[tile].spriteID}");
 
 
             // ROTATION RANDOMISER
@@ -130,12 +132,14 @@ public class TileControl : MonoBehaviour
             {
                 tilePulledAngle[tile] = (approach * 90) + (randResult * 180);
             }
-            
-        
+
+
 
         }
 
+    }
 
+    public void Draw(int x, int y, int select) { // call after Pull3Random, returns the select of the 3
 
         // TEMP - set up the ahead tile to take data from the Room obj
         Room tileSelected = tilePulled[0];

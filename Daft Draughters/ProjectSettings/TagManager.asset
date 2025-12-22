@@ -8,6 +8,7 @@ TagManager:
   - drafted
   - borderDeco
   - animation
+  - tileGUI
   layers:
   - Default
   - TransparentFX
