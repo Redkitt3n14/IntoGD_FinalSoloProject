@@ -154,6 +154,10 @@ public class TileControl : MonoBehaviour
 
     public void ClearAll()
     {
+        // deck reset functions
+        deckHandler.ResetDeck();
+
+        // 6x6 grid clearer
         for (int x = 0; x < 6; x++)
         {
             for (int y = 0; y < 6; y++)
@@ -161,15 +165,14 @@ public class TileControl : MonoBehaviour
                 // can select sprite from sprites[]
                 Sprite newSprite = defaultSprite;
                 tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = defaultSprite;
+                tilesSorted[x, y].GetComponent<RoomInfo>().ClearRoom();
 
                 Debug.Log($"Tile Swapped");
-                // TEMP debug output
 
-                // deck reset functions
-                deckHandler.ResetDeck();
             }
+
         }
-        
+
 
     }
 

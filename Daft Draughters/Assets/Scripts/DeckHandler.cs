@@ -75,7 +75,7 @@ public class DeckHandler : MonoBehaviour
         randTracker[2] = -1;
         randNum = -1;
 
-
+        
         room = new Room() // standard quad room
         {
             inDeck = true,
@@ -90,7 +90,7 @@ public class DeckHandler : MonoBehaviour
         }
 
 
-        room = new Room() // standard quad room
+        room = new Room() // standard branch room
         {
             inDeck = true,
             doorways = new bool[4] { true, true, true, false },
@@ -104,7 +104,7 @@ public class DeckHandler : MonoBehaviour
         }
 
 
-        room = new Room() // standard quad room
+        room = new Room() // standard corner room
         {
             inDeck = true,
             doorways = new bool[4] { true, true, false, false },
@@ -118,7 +118,7 @@ public class DeckHandler : MonoBehaviour
         }
 
 
-        room = new Room() // standard quad room
+        room = new Room() // standard straight room
         {
             inDeck = true,
             doorways = new bool[4] { true, false, true, false },
@@ -130,9 +130,9 @@ public class DeckHandler : MonoBehaviour
         {
             rooms.Add(room);
         }
+        
 
-
-        room = new Room() // standard quad room
+        room = new Room() // standard end room
         {
             inDeck = true,
             doorways = new bool[4] { true, false, false, false },

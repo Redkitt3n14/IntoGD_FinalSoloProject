@@ -104,7 +104,7 @@ public class PlayerActionHandler : MonoBehaviour
                 if (playerY < 5)
                 {
                     playerY++;
-                    moved = 1;
+                    moved = 3;
                 }
                 else // backup stops the player escaping
                 {
@@ -116,7 +116,7 @@ public class PlayerActionHandler : MonoBehaviour
                 if (playerY > 0)
                 {
                     playerY--;
-                    moved = 2;
+                    moved = 1;
                 }
                 else // backup stops the player escaping
                 {
@@ -129,7 +129,7 @@ public class PlayerActionHandler : MonoBehaviour
                 {
 
                     playerX++;
-                    moved = 3;
+                    moved = 2;
                 }
                 else // backup stops the player escaping
                 {

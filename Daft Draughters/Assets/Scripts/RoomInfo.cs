@@ -13,8 +13,9 @@ public class RoomInfo : MonoBehaviour
         // basic setup
         self = roomIn;
         self.angle = angleIn;
+        self.doorways = new bool[4];
 
-        self.rotation = Mathf.FloorToInt(angleIn / 90);
+        self.rotation = Mathf.FloorToInt(angleIn / 90) % 4; //  mod 4 stops it from being too high if >360 rotation
 
         if (doOffset)
         {
@@ -42,6 +43,13 @@ public class RoomInfo : MonoBehaviour
         self.angle = angleIn;
         self.rotation = angleIn / 90;
     }
+    public void ClearRoom()
+    {
+        self = new Room();
+    }
+
+
+    // getters
 
     // the 4 doorway getters
     public bool GetNorth()
