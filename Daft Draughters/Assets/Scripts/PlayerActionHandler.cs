@@ -52,8 +52,15 @@ public class PlayerActionHandler : MonoBehaviour
         playerPin = transform.GetChild(2).gameObject;
 
         // TEMP start position - do random side, random 0-5 for end implement 
-        playerX = 2;
-        playerY = 0;
+        int startPos = Random.Range(0, 5);
+        switch(Random.Range(0, 3))
+        {
+            case 0: playerX = 0; playerY = startPos; break;
+            case 1: playerX = 5; playerY = startPos; break;
+            case 2: playerX = startPos; playerY = 0; break;
+            case 3: playerX = startPos; playerY = 5; break;
+        }
+        
         tileControl.DrawStart(playerX, playerY); // does draw of first tile
         // zooms camera on initial tile
         playerCamera.transform.position = new Vector3(playerX, playerY, -10);
@@ -74,9 +81,19 @@ public class PlayerActionHandler : MonoBehaviour
 
             if (playerControls.Walking.Interact.triggered)
             {
+<<<<<<< Updated upstream
                 move = playerControls.Walking.ChangeRoom.ReadValue<Vector2>();
                 //Debug.Log("move {move.x} {move.y}");
             }
+=======
+                Vector2 move = new Vector2();
+
+                if (playerControls.Walking.Interact.triggered)
+                {
+                    move = playerControls.Walking.ChangeRoom.ReadValue<Vector2>();
+                    
+                }
+>>>>>>> Stashed changes
 
 
 
@@ -248,6 +265,17 @@ public class PlayerActionHandler : MonoBehaviour
 
         // set nail also sets userControl back to true
 
+
+        // TEMP start position - do random side, random 0-5 for end implement 
+        int startPos = Random.Range(0, 6);
+        switch (Random.Range(0, 4))
+        {
+            case 0: playerX = 0; playerY = startPos; break;
+            case 1: playerX = 5; playerY = startPos; break;
+            case 2: playerX = startPos; playerY = 0; break;
+            case 3: playerX = startPos; playerY = 5; break;
+        }
+
     }
 
 
@@ -278,7 +306,7 @@ public class PlayerActionHandler : MonoBehaviour
     {
         nailsAnim.SetBool("RemoveNail", true);
 
-
+        playerPin.transform.position = new Vector3(playerX, playerY, 2.5f); // hides the pin
     }
 
     void SetNail() // starts the nail reapplication animation

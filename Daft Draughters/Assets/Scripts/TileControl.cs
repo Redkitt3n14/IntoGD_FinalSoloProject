@@ -108,8 +108,13 @@ public class TileControl : MonoBehaviour
         // ROOM SELECTOR
         for (int tile = 0; tile < 1; tile++)
         {
+<<<<<<< Updated upstream
             tilePulled[tile] = deckHandler.PullRandom(false, false, 0);
             Debug.Log($"Pulled Tile with spriteID { tilePulled[tile].spriteID}");
+=======
+            tilePulled[tile] = deckHandler.PullRandom(false, false, tile);
+            Debug.Log($"Pulled Tile with spriteID {tilePulled[tile].spriteID}");
+>>>>>>> Stashed changes
 
 
             // ROTATION RANDOMISER
@@ -148,8 +153,14 @@ public class TileControl : MonoBehaviour
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
         tilesSorted[x, y].transform.Rotate(0f, 0f, tilePulledAngle[0], Space.Self);
 
+<<<<<<< Updated upstream
         Debug.Log($"Tile Swapped");
         // TEMP debug output
+=======
+        // remove the drawn tile from the deck
+        deckHandler.RemoveFromDeck(select);
+
+>>>>>>> Stashed changes
     }
 
     public void ClearAll()
