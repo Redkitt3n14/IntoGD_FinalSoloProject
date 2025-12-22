@@ -208,6 +208,8 @@ public class PlayerActionHandler : MonoBehaviour
 
                 if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, left = 2, up = 3, right = 4)
                 {
+                    ZoomIn();
+
                     if (!tileControl.CheckDrafted(playerX, playerY)) // if not, the tile is undrafted
                     {
                         tileControl.Pull3Random(playerX, playerY, moved);
@@ -338,6 +340,7 @@ public class PlayerActionHandler : MonoBehaviour
     {
         nailsAnim.SetBool("RemoveNail", true);
 
+        playerPin.transform.position = new Vector3(playerX, playerY, 2.5f); // hides the pin during transition
 
     }
 

@@ -121,7 +121,7 @@ public class TileControl : MonoBehaviour
         // ROOM SELECTOR
         for (int tile = 0; tile < 3; tile++)
         {
-            tilePulled[tile] = deckHandler.PullRandom(false, false, 0);
+            tilePulled[tile] = deckHandler.PullRandom(false, false, tile);
             Debug.Log($"Pulled Tile with spriteID {tilePulled[tile].spriteID}");
 
 
@@ -176,6 +176,9 @@ public class TileControl : MonoBehaviour
             guiTiles[tile].GetComponent<RoomInfo>().ClearRoom();
             guiTiles[tile].transform.rotation = Quaternion.identity;
         }
+
+        // removes selected tile from the deck
+        deckHandler.RemoveFromDeck(select);
 
     }
 
