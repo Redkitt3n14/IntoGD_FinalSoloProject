@@ -54,8 +54,14 @@ public class PlayerActionHandler : MonoBehaviour
         playerPin = transform.GetChild(2).gameObject;
 
         // TEMP start position - do random side, random 0-5 for end implement 
-        playerX = 2;
-        playerY = 0;
+        int startPos = Random.Range(0, 6);
+        switch (Random.Range(0, 4))
+        {
+            case 0: playerX = 0; playerY = startPos; break;
+            case 1: playerX = 5; playerY = startPos; break;
+            case 2: playerX = startPos; playerY = 0; break;
+            case 3: playerX = startPos; playerY = 5; break;
+        }
         tileControl.DrawStart(playerX, playerY); // does draw of first tile
         // zooms camera on initial tile
         playerCamera.transform.position = new Vector3(playerX, playerY, -10);
@@ -290,6 +296,17 @@ public class PlayerActionHandler : MonoBehaviour
         Invoke(nameof(ResetPlayer), 6.5f);
 
         // set nail also sets userControl back to true
+
+
+        // TEMP start position - do random side, random 0-5 for end implement 
+        int startPos = Random.Range(0, 6);
+        switch (Random.Range(0, 4))
+        {
+            case 0: playerX = 0; playerY = startPos; break;
+            case 1: playerX = 5; playerY = startPos; break;
+            case 2: playerX = startPos; playerY = 0; break;
+            case 3: playerX = startPos; playerY = 5; break;
+        }
 
     }
 
