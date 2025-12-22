@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "Zoom",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "2a6ccfb8-90c1-4d17-afe9-bf81becf15b0",
                     "expectedControlType": "",
                     "processors": "",
@@ -45,6 +45,33 @@
                     "name": "ZoomToggle",
                     "type": "Button",
                     "id": "4e99a73a-94b6-4bf1-aca9-eb1250e4053d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Room1Select",
+                    "type": "Button",
+                    "id": "4b73d7f7-84b9-4af6-8e1d-55dcfda0f0c7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Room2Select",
+                    "type": "Button",
+                    "id": "21dcc29c-69f2-45c6-89d3-a2040c05eb17",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Room3Select",
+                    "type": "Button",
+                    "id": "abc045d0-179e-4767-8831-30a28e14aeed",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -225,6 +252,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e2debba-2cf3-47e4-a47d-0e9ff52c4f0d",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Room1Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62b8d42e-0274-4147-a713-c1df2d25c4b7",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Room2Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c93da70-4439-4da8-9be2-da3d76107a68",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Room3Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

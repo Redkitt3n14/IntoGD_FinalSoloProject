@@ -9,7 +9,7 @@ public class PlayerActionHandler : MonoBehaviour
     [SerializeField] private bool fullView = false; // bool for if zoomed in or out - public so 
     [SerializeField] private bool userControl = true; // can be turned to false when animation is played
 
-
+    private bool inSelectMenu = false;
 
     private int playerX;
     private int playerY;
@@ -24,6 +24,8 @@ public class PlayerActionHandler : MonoBehaviour
     [SerializeField] private Animator nailsAnim;
     [SerializeField] private GameObject gameGrid;
     [SerializeField] private GameObject pseudoGrid;
+
+    [SerializeField] private GameObject guiGroup;
 
 
     private void Awake()
@@ -52,19 +54,20 @@ public class PlayerActionHandler : MonoBehaviour
         playerPin = transform.GetChild(2).gameObject;
 
         // TEMP start position - do random side, random 0-5 for end implement 
-        int startPos = Random.Range(0, 5);
-        switch(Random.Range(0, 3))
+        int startPos = Random.Range(0, 6);
+        switch (Random.Range(0, 4))
         {
             case 0: playerX = 0; playerY = startPos; break;
             case 1: playerX = 5; playerY = startPos; break;
             case 2: playerX = startPos; playerY = 0; break;
             case 3: playerX = startPos; playerY = 5; break;
         }
-        
         tileControl.DrawStart(playerX, playerY); // does draw of first tile
         // zooms camera on initial tile
         playerCamera.transform.position = new Vector3(playerX, playerY, -10);
         playerCamera.fieldOfView = 12;
+
+        guiGroup.SetActive(false); // UI is off to start
     }
 
 
@@ -76,166 +79,197 @@ public class PlayerActionHandler : MonoBehaviour
 
         if (userControl == true) // ignores movement if locked (ie before a previous move finishes)
         {
-
-            Vector2 move = new Vector2();
-
-            if (playerControls.Walking.Interact.triggered)
+            if (inSelectMenu == false)
             {
-<<<<<<< Updated upstream
-                move = playerControls.Walking.ChangeRoom.ReadValue<Vector2>();
-                //Debug.Log("move {move.x} {move.y}");
-            }
-=======
                 Vector2 move = new Vector2();
 
                 if (playerControls.Walking.Interact.triggered)
                 {
                     move = playerControls.Walking.ChangeRoom.ReadValue<Vector2>();
-                    
+                    //Debug.Log("move {move.x} {move.y}");
                 }
->>>>>>> Stashed changes
 
 
 
-            // zoom in / out function
-            if ((playerControls.Walking.ZoomToggle.triggered && fullView) || playerControls.Walking.Zoom.ReadValue<float>() > 0)
-            {
-                ZoomIn();
-
-            }
-            else if ((playerControls.Walking.ZoomToggle.triggered && !fullView) || playerControls.Walking.Zoom.ReadValue<float>() < 0)
-            {
-                ZoomOut();
-
-            }
-
-
-
-
-
-
-            // moving function temp - only 1 of X or Y can move at a time
-
-            if (move.y > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetNorth()) // up / north (only if there is a north door)
-            {
-                if (playerY < 5)
+                // zoom in / out function
+                if ((playerControls.Walking.ZoomToggle.triggered && fullView) || playerControls.Walking.Zoom.ReadValue<float>() > 0)
                 {
-                    if (!tileControl.CheckDrafted(playerX, playerY + 1)) // is the tile above not drafted?
-                    {
-                        playerY++;
-                        moved = 3;
-                        Debug.Log("North, undrafted");
-                    }
-                    else if (tileControl.tilesSorted[playerX, playerY + 1].GetComponent<RoomInfo>().GetSouth()) // if drafted, does it have south doora
-                    {
-                        playerY++;
-                        moved = 3;
-                        Debug.Log("North, drafted");
-                    }
+                    ZoomIn();
+
                 }
-                else if (playerY > 5) // backup stops the player escaping
+                else if ((playerControls.Walking.ZoomToggle.triggered && !fullView) || playerControls.Walking.Zoom.ReadValue<float>() < 0)
                 {
-                    playerY = 5;
+                    ZoomOut();
+
                 }
-            }
-            else if (move.y < 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetSouth()) // down / south (only if there is a south door)
-            {
-                if (playerY > 0)
+
+
+
+
+
+
+                // moving function temp - only 1 of X or Y can move at a time
+
+                if (move.y > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetNorth()) // up / north (only if there is a north door)
                 {
-                    if (!tileControl.CheckDrafted(playerX, playerY - 1)) // is the tile below not drafted?
+                    if (playerY < 5)
                     {
-                        playerY--;
-                        moved = 1;
-                        Debug.Log("South, undrafted");
+                        if (!tileControl.CheckDrafted(playerX, playerY + 1)) // is the tile above not drafted?
+                        {
+                            playerY++;
+                            moved = 3;
+                            Debug.Log("North, undrafted");
+                        }
+                        else if (tileControl.tilesSorted[playerX, playerY + 1].GetComponent<RoomInfo>().GetSouth()) // if drafted, does it have south doora
+                        {
+                            playerY++;
+                            moved = 3;
+                            Debug.Log("North, drafted");
+                        }
                     }
-                    else if (tileControl.tilesSorted[playerX, playerY - 1].GetComponent<RoomInfo>().GetNorth()) // if drafted, does it have north door
+                    else if (playerY > 5) // backup stops the player escaping
                     {
-                        playerY--;
-                        moved = 1;
-                        Debug.Log("South, drafted");
+                        playerY = 5;
                     }
                 }
-                else if (playerY < 0) // backup stops the player escaping
+                else if (move.y < 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetSouth()) // down / south (only if there is a south door)
                 {
-                    playerY = 0;
-                }
-            }
-            else if (move.x > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetEast()) // right / east (only if there is a east door)
-            {
-                if (playerX < 5)
-                {
-                    if (!tileControl.CheckDrafted(playerX + 1, playerY)) // is the tile to right not drafted?
+                    if (playerY > 0)
                     {
-                        playerX++;
-                        moved = 2;
-                        Debug.Log("East, undrafted");
+                        if (!tileControl.CheckDrafted(playerX, playerY - 1)) // is the tile below not drafted?
+                        {
+                            playerY--;
+                            moved = 1;
+                            Debug.Log("South, undrafted");
+                        }
+                        else if (tileControl.tilesSorted[playerX, playerY - 1].GetComponent<RoomInfo>().GetNorth()) // if drafted, does it have north door
+                        {
+                            playerY--;
+                            moved = 1;
+                            Debug.Log("South, drafted");
+                        }
                     }
-                    else if (tileControl.tilesSorted[playerX + 1, playerY].GetComponent<RoomInfo>().GetWest()) // if drafted, does it have west door
+                    else if (playerY < 0) // backup stops the player escaping
                     {
-                        playerX++;
-                        moved = 2;
-                        Debug.Log("East, drafted");
-                    }
-                }
-                else if (playerX > 5)// backup stops the player escaping
-                {
-                    playerX = 5;
-                }
-            }
-            else if (move.x < 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetWest()) // left / west (only if there is a west door)
-            {
-                if (playerX > 0)
-                {
-                    if (!tileControl.CheckDrafted(playerX - 1, playerY)) // is the tile to west not drafted?
-                    {
-                        playerX--;
-                        moved = 4;
-                        Debug.Log("West, undrafted");
-                    }
-                    else if (tileControl.tilesSorted[playerX - 1, playerY].GetComponent<RoomInfo>().GetEast()) // if drafted, does it have east door
-                    {
-                        playerX--;
-                        moved = 4;
-                        Debug.Log("West, drafted");
+                        playerY = 0;
                     }
                 }
-                else if (playerX < 0) // backup stops the player escaping
+                else if (move.x > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetEast()) // right / east (only if there is a east door)
                 {
-                    playerX = 0;
+                    if (playerX < 5)
+                    {
+                        if (!tileControl.CheckDrafted(playerX + 1, playerY)) // is the tile to right not drafted?
+                        {
+                            playerX++;
+                            moved = 2;
+                            Debug.Log("East, undrafted");
+                        }
+                        else if (tileControl.tilesSorted[playerX + 1, playerY].GetComponent<RoomInfo>().GetWest()) // if drafted, does it have west door
+                        {
+                            playerX++;
+                            moved = 2;
+                            Debug.Log("East, drafted");
+                        }
+                    }
+                    else if (playerX > 5)// backup stops the player escaping
+                    {
+                        playerX = 5;
+                    }
                 }
-            }
+                else if (move.x < 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetWest()) // left / west (only if there is a west door)
+                {
+                    if (playerX > 0)
+                    {
+                        if (!tileControl.CheckDrafted(playerX - 1, playerY)) // is the tile to west not drafted?
+                        {
+                            playerX--;
+                            moved = 4;
+                            Debug.Log("West, undrafted");
+                        }
+                        else if (tileControl.tilesSorted[playerX - 1, playerY].GetComponent<RoomInfo>().GetEast()) // if drafted, does it have east door
+                        {
+                            playerX--;
+                            moved = 4;
+                            Debug.Log("West, drafted");
+                        }
+                    }
+                    else if (playerX < 0) // backup stops the player escaping
+                    {
+                        playerX = 0;
+                    }
+                }
 
 
-            playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
+                playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
 
-            // calls tileControl to do a new tile pick at the position
+                // calls tileControl to do a new tile pick at the position
 
-            //Debug.Log($"at X {playerX} Y {playerY}");
+                //Debug.Log($"at X {playerX} Y {playerY}");
 
-            if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, left = 2, up = 3, right = 4)
+                if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, left = 2, up = 3, right = 4)
+                {
+                    ZoomIn();
+
+                    if (!tileControl.CheckDrafted(playerX, playerY)) // if not, the tile is undrafted
+                    {
+                        tileControl.Pull3Random(playerX, playerY, moved);
+
+                        guiGroup.SetActive(true); // UI is summoned
+
+                        inSelectMenu = true; // swaps from moving to UI
+                    }
+
+
+
+                    if (!fullView) // adjusts camera to new room if player is in zoomed view
+                    {
+                        playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+                        playerCamera.fieldOfView = 12;
+                    }
+
+                    moved = 0; // unsets for next use
+                }
+
+
+
+                // this function will reset the level to empty
+                if (playerControls.Walking.Pause.triggered)
+                {
+                    ResetLevel();
+                }
+
+            } // end of movement section
+
+
+            if (inSelectMenu == true) // waits in the menu until player chooses a room
             {
-                if (!tileControl.CheckDrafted(playerX, playerY)) // if not, the tile is undrafted
+                if (playerControls.Walking.Room1Select.triggered)
                 {
-                    tileControl.Draw(playerX, playerY, moved);
+                    tileControl.Draw(playerX, playerY, 0); // calls for the 1st (0) tile to be placed
+                    inSelectMenu = false;
                 }
-                
-
-
-                if (!fullView) // adjusts camera to new room if player is in zoomed view
+                else if (playerControls.Walking.Room2Select.triggered)
                 {
-                    playerCamera.transform.position = new Vector3(playerX, playerY, -10);
-                    playerCamera.fieldOfView = 12;
+                    tileControl.Draw(playerX, playerY, 1); // calls for the 2nd (1) tile to be placed
+                    inSelectMenu = false;
+                }
+                else if (playerControls.Walking.Room3Select.triggered)
+                {
+                    tileControl.Draw(playerX, playerY, 2); // calls for the 3rd (2) tile to be placed
+                    inSelectMenu = false;
                 }
 
-                moved = 0; // unsets for next use
-            }
+                if (!inSelectMenu) // when about to exit this section, hides the GUI
+                {
+                    guiGroup.SetActive(false); // UI is disabled for reentry
+                    Debug.Log("Exiting GUI");
+                }
 
-
-
-            // this function will reset the level to empty
-            if (playerControls.Walking.Pause.triggered) //TEMP on ESC key for nail testing
-            {
-                ResetLevel();
+                // this function will reset the level to empty CHECK
+                if (playerControls.Walking.Pause.triggered)
+                {
+                    ResetLevel();
+                }
             }
 
         }
@@ -258,7 +292,7 @@ public class PlayerActionHandler : MonoBehaviour
 
         Invoke(nameof(DropPage), 2.25f);
         
-        Invoke(nameof(RecoverPage), 4.5f);
+        Invoke(nameof(RecoverPage), 4.5f); // also clears board
 
         Invoke(nameof(SetNail), 3.25f); // not sure why but the nail anims take ages to trigger
         Invoke(nameof(ResetPlayer), 6.5f);
@@ -306,7 +340,8 @@ public class PlayerActionHandler : MonoBehaviour
     {
         nailsAnim.SetBool("RemoveNail", true);
 
-        playerPin.transform.position = new Vector3(playerX, playerY, 2.5f); // hides the pin
+        playerPin.transform.position = new Vector3(playerX, playerY, 2.5f); // hides the pin during transition
+
     }
 
     void SetNail() // starts the nail reapplication animation
