@@ -24,7 +24,8 @@ public class PlayerActionHandler : MonoBehaviour
     [SerializeField] private Animator nailsAnim;
     [SerializeField] private GameObject gameGrid;
     [SerializeField] private GameObject pseudoGrid;
-    [SerializeField] private GameObject GUIGroup;
+
+    [SerializeField] private GameObject guiGroup;
 
 
     private void Awake()
@@ -60,7 +61,7 @@ public class PlayerActionHandler : MonoBehaviour
         playerCamera.transform.position = new Vector3(playerX, playerY, -10);
         playerCamera.fieldOfView = 12;
 
-        GUIGroup.SetActive(false); // UI is off to start
+        guiGroup.SetActive(false); // UI is off to start
     }
 
 
@@ -205,7 +206,7 @@ public class PlayerActionHandler : MonoBehaviour
                     {
                         tileControl.Pull3Random(playerX, playerY, moved);
 
-                        GUIGroup.SetActive(true); // UI is summoned
+                        guiGroup.SetActive(true); // UI is summoned
 
                         inSelectMenu = true; // swaps from moving to UI
                     }
@@ -236,7 +237,6 @@ public class PlayerActionHandler : MonoBehaviour
             {
                 if (playerControls.Walking.Room1Select.triggered)
                 {
-                    Debug.Log("pressed 1 in GUI");
                     tileControl.Draw(playerX, playerY, 0); // calls for the 1st (0) tile to be placed
                     inSelectMenu = false;
                 }
@@ -253,7 +253,7 @@ public class PlayerActionHandler : MonoBehaviour
 
                 if (!inSelectMenu) // when about to exit this section, hides the GUI
                 {
-                    GUIGroup.SetActive(false); // UI is disabled for reentry
+                    guiGroup.SetActive(false); // UI is disabled for reentry
                     Debug.Log("Exiting GUI");
                 }
 
@@ -284,7 +284,7 @@ public class PlayerActionHandler : MonoBehaviour
 
         Invoke(nameof(DropPage), 2.25f);
         
-        Invoke(nameof(RecoverPage), 4.5f);
+        Invoke(nameof(RecoverPage), 4.5f); // also clears board
 
         Invoke(nameof(SetNail), 3.25f); // not sure why but the nail anims take ages to trigger
         Invoke(nameof(ResetPlayer), 6.5f);

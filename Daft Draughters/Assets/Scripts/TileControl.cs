@@ -13,17 +13,19 @@ public class TileControl : MonoBehaviour
     public Sprite[] sprites;
     public Sprite defaultSprite;
 
-    // accesses the TileManagers DeckHandler script
+    // declare access to the TileManagers DeckHandler script
     private DeckHandler deckHandler;
 
-    // sets up the holder for the 3 current random tiles
+    // declarations for the holder for the 3 current random tiles
     private Room[] tilePulled = new Room[3];
     private int[] tilePulledAngle = new int[3];
 
-    public Room[] tileGUIs;
+    // gui variable declarations
+    [SerializeField] private GameObject guiGroup;
+    private GameObject[] guiTiles = new GameObject[3];
+   
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Awake is called before start
     void Awake()
     {
         // setting up the deck script and resetting to default
@@ -42,8 +44,7 @@ public class TileControl : MonoBehaviour
             // sorts it into the position of the tiles current X and Y pos, then moved to 6x6 array
             int X = Mathf.RoundToInt(current.transform.localPosition.x);
             int Y = Mathf.RoundToInt(current.transform.localPosition.y);
-            //Debug.Log($"Tile {current} at pos {X},{Y}");
-            //Destroy(current);
+
             tilesSorted[X,Y] = current;
         }
 
@@ -52,12 +53,19 @@ public class TileControl : MonoBehaviour
         {
             for (int y = 0; y < 6; y++)
             {
-                Debug.Log($"Tile {tilesSorted[x,y]} at pos {x},{y}");
-                // moves all tiles by 2 on x as a test
-                //Destroy(tilesSorted[x,y]);
-                //tilesSorted[x,y].transform.Translate(1f, 0, 0);
+
                 
             }
+        }
+    }
+
+    // start is called once before update - after all other stuff done building
+    private void Start()
+    {
+        // gui Tiles setup
+        for (int i = 0; i < 3; i++)
+        {
+            guiTiles[i] = guiGroup.transform.GetChild(i).gameObject;
         }
     }
 
@@ -106,18 +114,20 @@ public class TileControl : MonoBehaviour
         // sets tile to drafted
         tilesSorted[x, y].tag = "drafted";
 
+        // reduces by 1 as the passed in had 0 as no movement (which would never be passed)
+        approach--; 
+
 
         // ROOM SELECTOR
-        for (int tile = 0; tile < 1; tile++)
+        for (int tile = 0; tile < 3; tile++)
         {
             tilePulled[tile] = deckHandler.PullRandom(false, false, 0);
             Debug.Log($"Pulled Tile with spriteID {tilePulled[tile].spriteID}");
 
 
             // ROTATION RANDOMISER
-            approach--; // reduces by 1 as the passed in had 0 as no movement (which would never be passed)
             int doorCount = 0;
-            for (int a = 0; a < 3; a++)
+            for (int a = 0; a < 4; a++)
             {
                 if (tilePulled[tile].doorways[a])
                 {
@@ -133,7 +143,10 @@ public class TileControl : MonoBehaviour
                 tilePulledAngle[tile] = (approach * 90) + (randResult * 180);
             }
 
-
+            // GUI tile setter
+            Sprite newSprite = sprites[tilePulled[tile].spriteID];
+            guiTiles[tile].GetComponent<SpriteRenderer>().sprite = newSprite;
+            guiTiles[tile].transform.Rotate(0f, 0f, tilePulledAngle[tile], Space.Self);
 
         }
 
@@ -141,23 +154,35 @@ public class TileControl : MonoBehaviour
 
     public void Draw(int x, int y, int select) { // call after Pull3Random, returns the select of the 3
 
-        // TEMP - set up the ahead tile to take data from the Room obj
-        Room tileSelected = tilePulled[0];
-        tileSelected.angle = tilePulledAngle[0];
+        Debug.Log($"pulling the {select} tile");
+        Sprite newSprite;
 
-        tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tilePulledAngle[0], true); 
+        // TEMP - set up the ahead tile to take data from the Room obj
+        Room tileSelected = tilePulled[select];
+        tileSelected.angle = tilePulledAngle[select];
+
+        tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tilePulledAngle[select], true); 
 
         // sets the tileSelected's sprite, sets and rotates it - TEMP SET TO [0] - use selector
-        Sprite newSprite = sprites[tileSelected.spriteID];
+        newSprite = sprites[tileSelected.spriteID];
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
-        tilesSorted[x, y].transform.Rotate(0f, 0f, tilePulledAngle[0], Space.Self);
+        tilesSorted[x, y].transform.Rotate(0f, 0f, tilePulledAngle[select], Space.Self);
 
-        Debug.Log($"Tile Swapped");
-        // TEMP debug output
+        // clear GUI tiles
+        newSprite = defaultSprite;
+        for (int tile = 0; tile < 3; tile++)
+        {
+            guiTiles[tile].GetComponent<SpriteRenderer>().sprite = defaultSprite;
+            guiTiles[tile].GetComponent<RoomInfo>().ClearRoom();
+            guiTiles[tile].transform.rotation = Quaternion.identity;
+        }
+
     }
 
     public void ClearAll()
     {
+        Sprite newSprite = defaultSprite;
+
         // deck reset functions
         deckHandler.ResetDeck();
 
@@ -167,14 +192,23 @@ public class TileControl : MonoBehaviour
             for (int y = 0; y < 6; y++)
             {
                 // can select sprite from sprites[]
-                Sprite newSprite = defaultSprite;
                 tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = defaultSprite;
                 tilesSorted[x, y].GetComponent<RoomInfo>().ClearRoom();
+                tilesSorted[x, y].transform.rotation = Quaternion.identity;
+                tilesSorted[x, y].tag = "undrafted";
 
                 Debug.Log($"Tile Swapped");
 
             }
 
+        }
+
+        // clear GUI tiles
+        for (int tile = 0; tile < 3; tile++)
+        {
+            guiTiles[tile].GetComponent<SpriteRenderer>().sprite = defaultSprite;
+            guiTiles[tile].GetComponent<RoomInfo>().ClearRoom();
+            guiTiles[tile].transform.rotation = Quaternion.identity;
         }
 
 
