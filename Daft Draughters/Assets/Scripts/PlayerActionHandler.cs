@@ -3,34 +3,47 @@ using UnityEngine.Timeline;
 
 public class PlayerActionHandler : MonoBehaviour
 {
-
+    // the controls
     private PlayerControls playerControls;
 
-    [SerializeField] private bool fullView = false; // bool for if zoomed in or out - public so 
-    [SerializeField] private bool userControl = true; // can be turned to false when animation is played
-
+    // toggles for different game states
+    private bool fullView = false; // bool for if zoomed in or out - public so 
+    private bool userControl = true; // can be turned to false when animation is played
     private bool inSelectMenu = false;
 
+    // player position variables
     private int playerX;
     private int playerY;
     private int moved = 0;
-
     [SerializeField] private float speed;
 
+    // tile controller script
     [SerializeField] private TileControl tileControl;
+
+    // the camera and the position marker pin
     private GameObject playerPin;
     private Camera playerCamera;
 
-    [SerializeField] private Animator nailsAnim;
+    // the main grid of tiles
     [SerializeField] private GameObject gameGrid;
+
+    // reset animation objects
+    [SerializeField] private Animator nailsAnim;
     [SerializeField] private GameObject pseudoGrid;
 
     [SerializeField] private GameObject guiGroup;
+
+    // audio
+    private AudioSource source;
+    public AudioClip pullSound;
+    public AudioClip placeSound;
+    public AudioClip resetSound;
 
 
     private void Awake()
     {
         playerControls = new PlayerControls();
+        
     }
 
     // control enablers & disablers
@@ -68,6 +81,9 @@ public class PlayerActionHandler : MonoBehaviour
         playerCamera.fieldOfView = 12;
 
         guiGroup.SetActive(false); // UI is off to start
+
+        // audio effects setup - goes to camera, sound group, sounds, gets component
+        source = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<AudioSource>();
     }
 
 
@@ -217,6 +233,8 @@ public class PlayerActionHandler : MonoBehaviour
                         guiGroup.SetActive(true); // UI is summoned
 
                         inSelectMenu = true; // swaps from moving to UI
+
+                        source.PlayOneShot(pullSound, 1.0f); // plays the audio for pullinga
                     }
 
 
@@ -263,6 +281,9 @@ public class PlayerActionHandler : MonoBehaviour
                 {
                     guiGroup.SetActive(false); // UI is disabled for reentry
                     Debug.Log("Exiting GUI");
+
+                    source.PlayOneShot(placeSound, 1.0f); // plays the sketching place tile audio
+
                 }
 
                 // this function will reset the level to empty CHECK
@@ -318,6 +339,8 @@ public class PlayerActionHandler : MonoBehaviour
     // these functions are all to do with resetting the grid --------------------------------
     void DropPage() // drops the game screen by activating it's rigidbody, and tells fake page to descend
     {
+        source.PlayOneShot(resetSound, 1.0f); // plays the paaper flutter reset audio
+
         gameGrid.GetComponent<Rigidbody>().useGravity = true;
 
         // makes the pseudo grid begin its controlled descent
