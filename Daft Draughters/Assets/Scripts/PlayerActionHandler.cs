@@ -234,7 +234,7 @@ public class PlayerActionHandler : MonoBehaviour
 
                         inSelectMenu = true; // swaps from moving to UI
 
-                        source.PlayOneShot(pullSound, 0.7f); // plays the audio for pullinga
+                        source.PlayOneShot(pullSound, 0.5f); // plays the audio for pullinga
                     }
 
 
@@ -266,21 +266,21 @@ public class PlayerActionHandler : MonoBehaviour
                     tileControl.Draw(playerX, playerY, 0); // calls for the 1st (0) tile to be placed
                     inSelectMenu = false;
 
-                    source.PlayOneShot(placeSound[0], 0.5f); // plays the sketching place tile audio
+                    source.PlayOneShot(placeSound[0], 0.4f); // plays the sketching place tile audio
                 }
                 else if (playerControls.Walking.Room2Select.triggered)
                 {
                     tileControl.Draw(playerX, playerY, 1); // calls for the 2nd (1) tile to be placed
                     inSelectMenu = false;
 
-                    source.PlayOneShot(placeSound[1], 0.5f); // plays the sketching place tile audio
+                    source.PlayOneShot(placeSound[1], 0.4f); // plays the sketching place tile audio
                 }
                 else if (playerControls.Walking.Room3Select.triggered)
                 {
                     tileControl.Draw(playerX, playerY, 2); // calls for the 3rd (2) tile to be placed
                     inSelectMenu = false;
 
-                    source.PlayOneShot(placeSound[2], 0.4f); // plays the sketching place tile audio
+                    source.PlayOneShot(placeSound[2], 0.3f); // plays the sketching place tile audio
                 }
 
                 if (!inSelectMenu) // when about to exit this section, hides the GUI
@@ -343,7 +343,7 @@ public class PlayerActionHandler : MonoBehaviour
     // these functions are all to do with resetting the grid --------------------------------
     void DropPage() // drops the game screen by activating it's rigidbody, and tells fake page to descend
     {
-        source.PlayOneShot(resetSound, 1.0f); // plays the paaper flutter reset audio
+        source.PlayOneShot(resetSound, 0.9f); // plays the paaper flutter reset audio
 
         gameGrid.GetComponent<Rigidbody>().useGravity = true;
 
