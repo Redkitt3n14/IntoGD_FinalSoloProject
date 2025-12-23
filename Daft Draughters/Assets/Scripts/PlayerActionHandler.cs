@@ -35,8 +35,8 @@ public class PlayerActionHandler : MonoBehaviour
 
     // audio
     private AudioSource source;
+    public AudioClip[] placeSound;
     public AudioClip pullSound;
-    public AudioClip placeSound;
     public AudioClip resetSound;
 
 
@@ -234,7 +234,7 @@ public class PlayerActionHandler : MonoBehaviour
 
                         inSelectMenu = true; // swaps from moving to UI
 
-                        source.PlayOneShot(pullSound, 1.0f); // plays the audio for pullinga
+                        source.PlayOneShot(pullSound, 0.7f); // plays the audio for pullinga
                     }
 
 
@@ -265,24 +265,28 @@ public class PlayerActionHandler : MonoBehaviour
                 {
                     tileControl.Draw(playerX, playerY, 0); // calls for the 1st (0) tile to be placed
                     inSelectMenu = false;
+
+                    source.PlayOneShot(placeSound[0], 0.5f); // plays the sketching place tile audio
                 }
                 else if (playerControls.Walking.Room2Select.triggered)
                 {
                     tileControl.Draw(playerX, playerY, 1); // calls for the 2nd (1) tile to be placed
                     inSelectMenu = false;
+
+                    source.PlayOneShot(placeSound[1], 0.5f); // plays the sketching place tile audio
                 }
                 else if (playerControls.Walking.Room3Select.triggered)
                 {
                     tileControl.Draw(playerX, playerY, 2); // calls for the 3rd (2) tile to be placed
                     inSelectMenu = false;
+
+                    source.PlayOneShot(placeSound[2], 0.4f); // plays the sketching place tile audio
                 }
 
                 if (!inSelectMenu) // when about to exit this section, hides the GUI
                 {
                     guiGroup.SetActive(false); // UI is disabled for reentry
                     Debug.Log("Exiting GUI");
-
-                    source.PlayOneShot(placeSound, 1.0f); // plays the sketching place tile audio
 
                 }
 
