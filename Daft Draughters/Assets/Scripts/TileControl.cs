@@ -1,5 +1,4 @@
 using RoomStruct;
-//using Unity.Mathematics; CHECK
 using UnityEngine;
 
 public class TileControl : MonoBehaviour
@@ -72,7 +71,7 @@ public class TileControl : MonoBehaviour
 
 
     // draws the very first tile - always a 4 path route
-    public void DrawStart(int x, int y) // CHECK - needs to mimick Draw
+    public void DrawStart(int x, int y) // mimick Draw but pulls 0th tile from pile (always a quad room)
     {
         // sets tile to drafted
         tilesSorted[x, y].tag = "drafted";
@@ -82,7 +81,7 @@ public class TileControl : MonoBehaviour
 
         float tileAngle = 0; // always quad so no need to rotate
 
-        // TEMP - set up the ahead tile to take data from the Room obj
+        // set up the ahead tile to take data from the Room obj
         Room tileSelected = tilePulled[0];
 
         tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tileAngle, false);
@@ -91,8 +90,6 @@ public class TileControl : MonoBehaviour
         Sprite newSprite = sprites[tileSelected.spriteID];
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
 
-        Debug.Log($"First Tile Drawn");
-        // TEMP debug output
     }
 
     // checks if tile is drawn
@@ -122,7 +119,6 @@ public class TileControl : MonoBehaviour
         for (int tile = 0; tile < 3; tile++)
         {
             tilePulled[tile] = deckHandler.PullRandom(false, false, tile);
-            Debug.Log($"Pulled Tile with spriteID {tilePulled[tile].spriteID}");
 
 
             // ROTATION RANDOMISER
@@ -154,16 +150,15 @@ public class TileControl : MonoBehaviour
 
     public void Draw(int x, int y, int select) { // call after Pull3Random, returns the select of the 3
 
-        Debug.Log($"pulling the {select} tile");
         Sprite newSprite;
 
-        // TEMP - set up the ahead tile to take data from the Room obj
+        // set up the ahead tile to take data from the Room obj
         Room tileSelected = tilePulled[select];
         tileSelected.angle = tilePulledAngle[select];
 
         tilesSorted[x, y].GetComponent<RoomInfo>().SetRoom(tileSelected, tilePulledAngle[select], true); 
 
-        // sets the tileSelected's sprite, sets and rotates it - TEMP SET TO [0] - use selector
+        // sets the tileSelected's sprite, sets and rotates it
         newSprite = sprites[tileSelected.spriteID];
         tilesSorted[x, y].GetComponent<SpriteRenderer>().sprite = newSprite;
         tilesSorted[x, y].transform.Rotate(0f, 0f, tilePulledAngle[select], Space.Self);
@@ -200,7 +195,6 @@ public class TileControl : MonoBehaviour
                 tilesSorted[x, y].transform.rotation = Quaternion.identity;
                 tilesSorted[x, y].tag = "undrafted";
 
-                Debug.Log($"Tile Swapped");
 
             }
 
@@ -218,7 +212,7 @@ public class TileControl : MonoBehaviour
     }
 
 
-    // gets the exits of a specific tile
+    // gets the exits of a specific tile - these were not yet implemented in final build
     public int GetExits(int x, int y, int direction, out bool[] exits, out Sprite newSprite)
     {
         exits = new bool[] { true, true, true, true }; // TEMP all set to true

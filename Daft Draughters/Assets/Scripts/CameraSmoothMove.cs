@@ -6,6 +6,7 @@ public class CameraSmoothMove : MonoBehaviour
 {
 
     public float speedDivBase = 1.5f;
+    public float speedDivRamp = 1.5f;
     private float speedDiv;
 
     // the Y positions it aims for
@@ -34,7 +35,6 @@ public class CameraSmoothMove : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginCamMove(float endX, float endY, bool zoomOut)
     {
-        Debug.Log($"CAMERA MOVE CALL");
         
         moving = true;
         timePass = 0;
@@ -50,13 +50,12 @@ public class CameraSmoothMove : MonoBehaviour
 
         if (moving) // increases speed if it hadnt reached previous destination yet
         {
-            speedDiv = speedDivBase / 1.2f;
+            speedDiv = speedDivBase / speedDivRamp;
         }
 
         startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z); // current pos
         endPos = new Vector3(endX, endY, endZ); // position passed in
 
-        //transform.position = startPos;
     }
 
     // Update is called once per frame - if moving, smoothsteps to get a psuedodrag timing, then applies it to lerp between start and end for smooth descent
@@ -70,17 +69,13 @@ public class CameraSmoothMove : MonoBehaviour
             drag = Mathf.SmoothStep(0f, 1f, timePass);
 
             transform.position = Vector3.Lerp(startPos, endPos, drag);
-            // TEMP
-            Debug.Log($"TimePass: {timePass}, Drag: {drag}");
+
 
             if (timePass >= 1) // overshoot protection
             {
                 transform.position = endPos;
                 moving = false;
 
-                Debug.Log($"DONE MOVING CAMERA");
-
-                //playerActHan.ReenableControl();
             }
         }
     }

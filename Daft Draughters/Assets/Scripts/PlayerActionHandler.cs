@@ -69,7 +69,7 @@ public class PlayerActionHandler : MonoBehaviour
         tileControl = transform.GetChild(1).gameObject.GetComponent<TileControl>();
         playerPin = transform.GetChild(2).gameObject;
 
-        // TEMP start position - do random side, random 0-5 for end implement 
+        // picks random side, then 0-5 position on that side for starting pos
         int startPos = Random.Range(0, 6);
         switch (Random.Range(0, 4))
         {
@@ -105,7 +105,7 @@ public class PlayerActionHandler : MonoBehaviour
                 if (playerControls.Walking.Interact.triggered)
                 {
                     move = playerControls.Walking.ChangeRoom.ReadValue<Vector2>();
-                    //Debug.Log("move {move.x} {move.y}");
+                
                 }
 
 
@@ -137,13 +137,13 @@ public class PlayerActionHandler : MonoBehaviour
                         {
                             playerY++;
                             moved = 3;
-                            Debug.Log("North, undrafted");
+                          
                         }
                         else if (tileControl.tilesSorted[playerX, playerY + 1].GetComponent<RoomInfo>().GetSouth()) // if drafted, does it have south doora
                         {
                             playerY++;
                             moved = 3;
-                            Debug.Log("North, drafted");
+                       
                         }
                     }
                     else if (playerY > 5) // backup stops the player escaping
@@ -159,13 +159,13 @@ public class PlayerActionHandler : MonoBehaviour
                         {
                             playerY--;
                             moved = 1;
-                            Debug.Log("South, undrafted");
+
                         }
                         else if (tileControl.tilesSorted[playerX, playerY - 1].GetComponent<RoomInfo>().GetNorth()) // if drafted, does it have north door
                         {
                             playerY--;
                             moved = 1;
-                            Debug.Log("South, drafted");
+                       
                         }
                     }
                     else if (playerY < 0) // backup stops the player escaping
@@ -181,13 +181,13 @@ public class PlayerActionHandler : MonoBehaviour
                         {
                             playerX++;
                             moved = 2;
-                            Debug.Log("East, undrafted");
+                
                         }
                         else if (tileControl.tilesSorted[playerX + 1, playerY].GetComponent<RoomInfo>().GetWest()) // if drafted, does it have west door
                         {
                             playerX++;
                             moved = 2;
-                            Debug.Log("East, drafted");
+                
                         }
                     }
                     else if (playerX > 5)// backup stops the player escaping
@@ -203,13 +203,13 @@ public class PlayerActionHandler : MonoBehaviour
                         {
                             playerX--;
                             moved = 4;
-                            Debug.Log("West, undrafted");
+
                         }
                         else if (tileControl.tilesSorted[playerX - 1, playerY].GetComponent<RoomInfo>().GetEast()) // if drafted, does it have east door
                         {
                             playerX--;
                             moved = 4;
-                            Debug.Log("West, drafted");
+
                         }
                     }
                     else if (playerX < 0) // backup stops the player escaping
@@ -221,9 +221,9 @@ public class PlayerActionHandler : MonoBehaviour
 
                 playerPin.transform.position = new Vector3(playerX, playerY, -0.5f);
 
-                // calls tileControl to do a new tile pick at the position
 
-                //Debug.Log($"at X {playerX} Y {playerY}");
+
+                // calls tileControl to do a new tile pick at the position
 
                 if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, left = 2, up = 3, right = 4)
                 {
@@ -296,7 +296,7 @@ public class PlayerActionHandler : MonoBehaviour
 
                 }
 
-                // this function will reset the level to empty CHECK
+                // this function will reset the level to empty
                 if (playerControls.Walking.Pause.triggered)
                 {
                     // drafts a tile to ensure things dont break, then calls for reset
@@ -338,7 +338,7 @@ public class PlayerActionHandler : MonoBehaviour
         // set nail also sets userControl back to true
 
 
-        // TEMP start position - do random side, random 0-5 for end implement 
+        // picks random side, then 0-5 position on that side for starting pos
         int startPos = Random.Range(0, 6);
         switch (Random.Range(0, 4))
         {

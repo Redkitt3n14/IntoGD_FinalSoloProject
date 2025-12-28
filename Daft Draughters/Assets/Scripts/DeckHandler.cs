@@ -35,7 +35,7 @@ public class DeckHandler : MonoBehaviour
 
     public void RemoveFromDeck(int pullTracker) // removes the tile that the user selected from deck
     {
-        Debug.Log($"Logger {pullTracker} - {randTracker[0]} {randTracker[1]} {randTracker[2]}");
+
         int removal = randTracker[pullTracker];
         rooms.RemoveAt(removal);
 
@@ -67,7 +67,7 @@ public class DeckHandler : MonoBehaviour
 
 
     private void CompileDeck() { // called by reset deck
-        Debug.Log("called compile");
+
 
         // reset list and room counter, and random trackers
         roomTotal = 0;

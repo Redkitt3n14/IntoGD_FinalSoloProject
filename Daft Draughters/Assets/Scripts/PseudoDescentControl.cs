@@ -58,7 +58,7 @@ public class PseudoDescentControl : MonoBehaviour
     {
         GetComponent<Renderer>().enabled = false; // makes hidden
         descending = false;
-        //gameGrid.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+
         transform.position = startPos; // resets to start
     }
 }
