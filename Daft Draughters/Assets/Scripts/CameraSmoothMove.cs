@@ -5,8 +5,8 @@ using UnityEngine.Rendering;
 public class CameraSmoothMove : MonoBehaviour
 {
 
-    public float speedDivBase = 1.5f;
-    public float speedDivRamp = 1.5f;
+    [SerializeField] private float speedDivBase = 1.5f;
+    [SerializeField] private float speedDivRamp = 1.5f;
     private float speedDiv;
 
     // the Y positions it aims for

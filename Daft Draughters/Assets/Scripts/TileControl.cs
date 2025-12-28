@@ -6,11 +6,11 @@ public class TileControl : MonoBehaviour
 
     // tile array declare
     private GameObject[] tilesIn;
-    public GameObject[,] tilesSorted;
+    public GameObject[,] tilesSorted; // NOTE: this is the main publically stored variable in the project - the core 6x6 gameobject storage
     GameObject current;
 
-    public Sprite[] sprites;
-    public Sprite defaultSprite;
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Sprite defaultSprite;
 
     // declare access to the TileManagers DeckHandler script
     private DeckHandler deckHandler;

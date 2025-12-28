@@ -36,9 +36,9 @@ public class PlayerActionHandler : MonoBehaviour
 
     // audio
     private AudioSource source;
-    public AudioClip[] placeSound;
-    public AudioClip pullSound;
-    public AudioClip resetSound;
+    [SerializeField] private AudioClip[] placeSound;
+    [SerializeField] private AudioClip pullSound;
+    [SerializeField] private AudioClip resetSound;
 
 
     private void Awake()

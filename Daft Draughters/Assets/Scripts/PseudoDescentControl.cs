@@ -5,11 +5,11 @@ using UnityEngine.Rendering;
 public class PseudoDescentControl : MonoBehaviour
 {
 
-    public float speedDiv = 2.0f;
+    [SerializeField] private float speedDiv = 2.0f;
 
     // the Y positions it aims for
-    public float startY = 12.5f;
-    public float endY = 2.5f;
+    [SerializeField] private float startY = 12.5f;
+    [SerializeField] private float endY = 2.5f;
     private Vector3 startPos;
     private Vector3 endPos;
 
