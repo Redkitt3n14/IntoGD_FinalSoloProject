@@ -124,7 +124,7 @@ public class PlayerActionHandler : MonoBehaviour
 
 
 
-                // moving function temp - only 1 of X or Y can move at a time
+                // moving function - only 1 of X or Y can move at a time
 
                 if (move.y > 0 && tileControl.tilesSorted[playerX, playerY].GetComponent<RoomInfo>().GetNorth()) // up / north (only if there is a north door)
                 {
@@ -224,10 +224,12 @@ public class PlayerActionHandler : MonoBehaviour
 
                 if (moved > 0) // calls tile draw if move attempt (move direction: no = 0, down = 1, left = 2, up = 3, right = 4)
                 {
-                    ZoomIn();
+                    
 
                     if (!tileControl.CheckDrafted(playerX, playerY)) // if not, the tile is undrafted
                     {
+                        ZoomIn(); // calls for zoom in when making a new tile
+
                         tileControl.Pull3Random(playerX, playerY, moved);
 
                         guiGroup.SetActive(true); // UI is summoned
@@ -286,13 +288,19 @@ public class PlayerActionHandler : MonoBehaviour
                 if (!inSelectMenu) // when about to exit this section, hides the GUI
                 {
                     guiGroup.SetActive(false); // UI is disabled for reentry
-                    Debug.Log("Exiting GUI");
+                    
 
                 }
 
                 // this function will reset the level to empty CHECK
                 if (playerControls.Walking.Pause.triggered)
                 {
+                    // drafts a tile to ensure things dont break, then calls for reset
+                    tileControl.Draw(playerX, playerY, 0); // calls for the 1st (0) tile to be placed
+                    inSelectMenu = false;
+
+                    guiGroup.SetActive(false); // UI is disabled for reentry
+                    
                     ResetLevel();
                 }
             }
@@ -307,7 +315,8 @@ public class PlayerActionHandler : MonoBehaviour
 
 
     // drops the previous map and makes a new one
-    // this function drops out the real map, drops in a fake new map, clears real map, then teleports real map back up and hides fake new map
+    // this function drops out the real map, drops in a fake new map, clears real map,
+    // then teleports real map back up and hides fake new map
     void ResetLevel()
     {
         userControl = false;
