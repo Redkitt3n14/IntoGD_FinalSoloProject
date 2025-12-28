@@ -247,7 +247,7 @@ public class PlayerActionHandler : MonoBehaviour
                     if (!fullView) // adjusts camera to new room if player is in zoomed view
                     {
                         //playerCamera.transform.position = new Vector3(playerX, playerY, -10);
-                        playerCamScript.BeginCamMove(playerX, playerY);
+                        playerCamScript.BeginCamMove(playerX, playerY, false);
                         playerCamera.fieldOfView = 12;
                     }
 
@@ -405,20 +405,15 @@ public class PlayerActionHandler : MonoBehaviour
     {
         fullView = false; // sets to false toggle for movement enabling - now in zoomed view
 
-        playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+        playerCamScript.BeginCamMove(playerX, playerY, false);
         playerCamera.fieldOfView = 12;
     }
     void ZoomOut()
     {
         fullView = true; // sets to true toggle for movement blocking - now in full map view
 
-        playerCamera.transform.position = new Vector3(2.5f, 2.5f, -26);
+        playerCamScript.BeginCamMove(2.5f, 2.5f, true);
         playerCamera.fieldOfView = 16;
-    }
-
-    public void ReenableControl() // the camera calls this once its script has finished moving it
-    {
-        userControl = true;
     }
 
     // end of camera move functions ---------------------------------------------------------

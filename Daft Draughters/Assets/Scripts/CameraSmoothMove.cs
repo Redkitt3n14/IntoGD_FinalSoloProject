@@ -5,11 +5,13 @@ using UnityEngine.Rendering;
 public class CameraSmoothMove : MonoBehaviour
 {
 
-    public float speedDiv = 3.0f;
+    public float speedDivBase = 1.5f;
+    private float speedDiv;
 
     // the Y positions it aims for
-    public float endX = 0f;
-    public float endY = 0f;
+    private float endX = 0f;
+    private float endY = 0f;
+    private float endZ = 0f;
     private Vector3 startPos;
     private Vector3 endPos;
 
@@ -30,15 +32,29 @@ public class CameraSmoothMove : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void BeginCamMove(int endX, int endY)
+    public void BeginCamMove(float endX, float endY, bool zoomOut)
     {
         Debug.Log($"CAMERA MOVE CALL");
-        GetComponent<Renderer>().enabled = true; // makes visible
+        
         moving = true;
         timePass = 0;
 
+        endZ = -10f;
+
+        if (zoomOut)
+        {
+            endZ = -26f;
+        }
+
+        speedDiv = speedDivBase;
+
+        if (moving) // increases speed if it hadnt reached previous destination yet
+        {
+            speedDiv = speedDivBase / 1.2f;
+        }
+
         startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z); // current pos
-        endPos = new Vector3(endX, endY, transform.position.z); // position passed in
+        endPos = new Vector3(endX, endY, endZ); // position passed in
 
         //transform.position = startPos;
     }
@@ -54,13 +70,17 @@ public class CameraSmoothMove : MonoBehaviour
             drag = Mathf.SmoothStep(0f, 1f, timePass);
 
             transform.position = Vector3.Lerp(startPos, endPos, drag);
+            // TEMP
+            Debug.Log($"TimePass: {timePass}, Drag: {drag}");
 
             if (timePass >= 1) // overshoot protection
             {
                 transform.position = endPos;
                 moving = false;
 
-                playerActHan.ReenableControl();
+                Debug.Log($"DONE MOVING CAMERA");
+
+                //playerActHan.ReenableControl();
             }
         }
     }
