@@ -194,8 +194,6 @@ public class TileControl : MonoBehaviour
                 tilesSorted[x, y].GetComponent<RoomInfo>().ClearRoom();
                 tilesSorted[x, y].transform.rotation = Quaternion.identity;
                 tilesSorted[x, y].tag = "undrafted";
-
-
             }
 
         }
@@ -207,7 +205,6 @@ public class TileControl : MonoBehaviour
             guiTiles[tile].GetComponent<RoomInfo>().ClearRoom();
             guiTiles[tile].transform.rotation = Quaternion.identity;
         }
-
 
     }
 
