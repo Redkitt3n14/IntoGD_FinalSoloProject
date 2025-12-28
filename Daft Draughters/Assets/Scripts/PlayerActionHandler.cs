@@ -23,6 +23,7 @@ public class PlayerActionHandler : MonoBehaviour
     // the camera and the position marker pin
     private GameObject playerPin;
     private Camera playerCamera;
+    private CameraSmoothMove playerCamScript;
 
     // the main grid of tiles
     [SerializeField] private GameObject gameGrid;
@@ -63,6 +64,8 @@ public class PlayerActionHandler : MonoBehaviour
     {
         // gets the camera, the script of tileControl, and the player position pin
         playerCamera = transform.GetChild(0).GetComponent<Camera>();
+        playerCamScript = playerCamera.GetComponent<CameraSmoothMove>();
+
         tileControl = transform.GetChild(1).gameObject.GetComponent<TileControl>();
         playerPin = transform.GetChild(2).gameObject;
 
@@ -243,7 +246,8 @@ public class PlayerActionHandler : MonoBehaviour
 
                     if (!fullView) // adjusts camera to new room if player is in zoomed view
                     {
-                        playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+                        //playerCamera.transform.position = new Vector3(playerX, playerY, -10);
+                        playerCamScript.BeginCamMove(playerX, playerY);
                         playerCamera.fieldOfView = 12;
                     }
 
@@ -412,9 +416,9 @@ public class PlayerActionHandler : MonoBehaviour
         playerCamera.fieldOfView = 16;
     }
 
-    void CameraMove()
+    public void ReenableControl() // the camera calls this once its script has finished moving it
     {
-
+        userControl = true;
     }
 
     // end of camera move functions ---------------------------------------------------------
