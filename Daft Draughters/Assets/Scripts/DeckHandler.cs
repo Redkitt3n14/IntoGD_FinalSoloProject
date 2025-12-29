@@ -1,7 +1,6 @@
 using RoomStruct;
 using System.Collections.Generic; // for rooms list
 using UnityEngine;
-using UnityEngine.tvOS;
 
 public class DeckHandler : MonoBehaviour
 {
