@@ -33,12 +33,14 @@ public class CameraSmoothMove : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void BeginCamMove(float endX, float endY, bool zoomOut)
+    public void BeginCamMove(float endXIn, float endYIn, bool zoomOut)
     {
         
         moving = true;
         timePass = 0;
 
+        endX = endXIn;
+        endY = endYIn;
         endZ = -10f;
 
         if (zoomOut)
